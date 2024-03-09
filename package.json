@@ -1,3 +1,5 @@
+//The package.json file defines the application dependencies and other information
+//It also defines a startup script that will call the application entry point, the JavaScript file /bin/www
 {
   "name": "locallibrary",
   "version": "0.0.0",
