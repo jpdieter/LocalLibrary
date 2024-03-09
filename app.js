@@ -4,20 +4,22 @@ const path = require('path');
 const cookieParser = require('cookie-parser'); //Used to parse the cookie header and populate req.cookies (essentially provides a convenient method for accessing cookie information).
 const logger = require('morgan');
 
+//These modules/files contain code for handling particular sets of related "routes" (URL paths). 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views')); //folder where templates will be stored
+app.set('view engine', 'pug'); //template library
 
+//middleware libraries
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json()); //populate req.body with form fields
+app.use(express.urlencoded({ extended: false })); ////populate req.body with form fields
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); //serve all static files in the /public directory
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
