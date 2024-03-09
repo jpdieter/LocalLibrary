@@ -3,12 +3,24 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser'); //Used to parse the cookie header and populate req.cookies (essentially provides a convenient method for accessing cookie information).
 const logger = require('morgan');
+const mongoose = require('mongoose');
 
 //These modules/files contain code for handling particular sets of related "routes" (URL paths). 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 const app = express();
+
+// Set up mongoose connection
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+const mongoDB = process.env.DATABASEURL;
+
+main().catch((err) => console.log(err));
+async function main() {
+  await mongoose.connect(mongoDB);
+}
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views')); //folder where templates will be stored
