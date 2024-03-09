@@ -21,6 +21,7 @@ app.use(express.urlencoded({ extended: false })); ////populate req.body with for
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public'))); //serve all static files in the /public directory
 
+//route handlers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
@@ -40,4 +41,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+//export to be used by /bin/wwww
 module.exports = app;
