@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser'); //Used to parse the cookie header and populate req.cookies (essentially provides a convenient method for accessing cookie information).
 const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
