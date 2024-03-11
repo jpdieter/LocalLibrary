@@ -9,8 +9,7 @@ exports.bookinstance_list = asyncHandler(async (req, res, next) => {
       title: "Book Instance List",
       bookinstance_list: allBookInstances,
     });
-  });
-  
+  });  
 
 // Display detail page for a specific BookInstance.
 exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
