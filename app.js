@@ -38,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public'))); //serve all static file
 //route handlers
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use("/catalog", catalogRouter); // Add catalog routes to middleware chain.
+app.use('/catalog', catalogRouter); // Add catalog routes to middleware chain.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
