@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser'); //Used to parse the cookie header
 const logger = require('morgan');
 require('dotenv').config()
 const compression = require("compression");
+const helmet = require("helmet");
 
 //These modules/files contain code for handling particular sets of related "routes" (URL paths). 
 const indexRouter = require('./routes/index');
@@ -36,6 +37,16 @@ app.use(express.urlencoded({ extended: false })); ////populate req.body with for
 app.use(cookieParser());
 app.use(compression()); // Compress all routes
 app.use(express.static(path.join(__dirname, 'public'))); //serve all static files in the /public directory
+
+// Add helmet to the middleware chain.
+// Set CSP headers to allow our Bootstrap and Jquery to be served
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+    },
+  }),
+);
 
 //route handlers
 app.use('/', indexRouter);
