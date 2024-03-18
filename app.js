@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser'); //Used to parse the cookie header and populate req.cookies (essentially provides a convenient method for accessing cookie information).
 const logger = require('morgan');
 require('dotenv').config()
+const compression = require("compression");
 
 //These modules/files contain code for handling particular sets of related "routes" (URL paths). 
 const indexRouter = require('./routes/index');
@@ -33,6 +34,7 @@ app.use(logger('dev'));
 app.use(express.json()); //populate req.body with form fields
 app.use(express.urlencoded({ extended: false })); ////populate req.body with form fields
 app.use(cookieParser());
+app.use(compression()); // Compress all routes
 app.use(express.static(path.join(__dirname, 'public'))); //serve all static files in the /public directory
 
 //route handlers
