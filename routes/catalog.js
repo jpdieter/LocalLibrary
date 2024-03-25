@@ -1,3 +1,5 @@
+//Route definitions. The controller functions are then called to handle the request.
+
 const express = require("express");
 const router = express.Router();
 
@@ -10,7 +12,7 @@ const book_instance_controller = require("../controllers/bookinstanceController"
 /// BOOK ROUTES ///
 
 // GET catalog home page.
-router.get("/", book_controller.index);
+router.get("/", book_controller.index); //When a GET request is made to /catalog, the index function from book_controller is called to handle the request.
 
 // GET request for creating a Book. NOTE This must come before routes that display Book (uses id).
 router.get("/book/create", book_controller.book_create_get);

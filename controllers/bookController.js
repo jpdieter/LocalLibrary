@@ -1,3 +1,5 @@
+//These functions are responsible for handling specific routes defined in the catalogRouter.
+
 const Book = require("../models/book");
 const Author = require("../models/author");
 const Genre = require("../models/genre");
