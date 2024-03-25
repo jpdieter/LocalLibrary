@@ -52,6 +52,10 @@ app.use(cookieParser());
 app.use(compression()); // Compress all routes
 app.use(express.static(path.join(__dirname, 'public'))); //serve all static files in the /public directory
 
+
+// Initialize Passport and add passport.initialize() middleware
+app.use(passport.initialize());
+
 // Set up session middleware with connect-mongo as the store
 app.use(session({
   secret: process.env.SECRET_KEY,
@@ -62,6 +66,9 @@ app.use(session({
     ttl: 24 * 60 * 60 // session TTL in seconds (optional)
   })
 }));
+
+// Use passport.session() middleware after session middleware
+app.use(passport.session());
 
 // Add helmet to the middleware chain.
 // Set CSP headers to allow our Bootstrap and Jquery to be served
