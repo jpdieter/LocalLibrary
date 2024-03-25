@@ -6,6 +6,11 @@ const logger = require('morgan');
 require('dotenv').config()
 const compression = require("compression");
 const helmet = require("helmet");
+const LocalStrategy = require('passport-local');
+const passport = require('passport');
+const flash = require('connect-flash');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 //These modules/files contain code for handling particular sets of related "routes" (URL paths). 
 const indexRouter = require('./routes/index');
@@ -46,6 +51,17 @@ app.use(express.urlencoded({ extended: false })); ////populate req.body with for
 app.use(cookieParser());
 app.use(compression()); // Compress all routes
 app.use(express.static(path.join(__dirname, 'public'))); //serve all static files in the /public directory
+
+// Set up session middleware with connect-mongo as the store
+app.use(session({
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ 
+    mongoUrl: process.env.DATABASE_URL, // Provide your MongoDB connection URL here
+    ttl: 24 * 60 * 60 // session TTL in seconds (optional)
+  })
+}));
 
 // Add helmet to the middleware chain.
 // Set CSP headers to allow our Bootstrap and Jquery to be served
