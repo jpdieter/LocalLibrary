@@ -64,6 +64,53 @@ router.post('/login/password', passport.authenticate('local', {
   failureFlash: true
 }));
 
+router.post('/logout', function(req, res, next) {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+  });  
+
+  router.get('/signup', function(req, res, next) {
+    res.render('signup');
+  });
+
+  router.post('/signup', async function(req, res, next) {
+    try {
+      // Generate salt
+      const salt = crypto.randomBytes(16).toString('hex');
+  
+      // Hash the password
+      const hashedPassword = await new Promise((resolve, reject) => {
+        crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', (err, derivedKey) => {
+          if (err) return reject(err);
+          resolve(derivedKey.toString('base64'));
+        });
+      });
+  
+      // Create a new user document
+      const newUser = new User({
+        username: req.body.username,
+        hashed_password: hashedPassword,
+        salt: salt
+      });
+  
+      // Save the user document to the database
+      await newUser.save();
+  
+      // Log in the user
+      req.login(newUser, function(err) {
+        if (err) { return next(err); }
+        res.redirect('/');
+      });
+    } catch (err) {
+      next(err);
+    }
+  });
+  
+  module.exports = router;
+  
+
 passport.serializeUser(function(user, cb) {
     process.nextTick(function() {
       cb(null, { id: user.id, username: user.username });
