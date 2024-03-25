@@ -11,18 +11,18 @@ const helmet = require("helmet");
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
-
+const authRouter = require('./routes/auth');
 const app = express();
 
-// Set up rate limiter: maximum of twenty requests per minute
-const RateLimit = require("express-rate-limit");
-const limiter = RateLimit({
-  windowMs: 1 * 60 * 1000, // 1 minute
-  max: 20,
-  validate: {xForwardedForHeader: false},
-});
-// Apply rate limiter to all requests
-app.use(limiter);
+// // Set up rate limiter: maximum of twenty requests per minute
+// const RateLimit = require("express-rate-limit");
+// const limiter = RateLimit({
+//   windowMs: 1 * 60 * 1000, // 1 minute
+//   max: 20,
+//   validate: {xForwardedForHeader: false},
+// });
+// // Apply rate limiter to all requests
+// app.use(limiter);
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
@@ -58,9 +58,10 @@ app.use(
 );
 
 //route handlers
-app.use('/', indexRouter);
+app.use('/', indexRouter); //Require the routes for the main pages
 app.use('/users', usersRouter);
 app.use('/catalog', catalogRouter); // Add catalog routes to middleware chain.
+app.use('/', authRouter); //any requests that match the routes defined in auth.js will be handled by that file.
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
