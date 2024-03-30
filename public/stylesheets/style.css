@@ -12,3 +12,24 @@ a {
   padding: 0;
   list-style: none;
 }
+
+.center-content {
+  padding: 70px 0;
+  text-align: center;
+  /* margin: 0 auto; */
+  width: 50%;
+}
+
+.center-content-index {
+  padding: 20px 0;
+  text-align: center;
+  /* margin: 0 auto; */
+  width: 50%;
+} 
+
+.flex-container {
+  display: flex;
+  /* justify-content: center; /* Horizontally center content */
+  /* align-items: center; /* Vertically center content */
+  height: 100vh; /* Optional: Set the height of the container */
+}
