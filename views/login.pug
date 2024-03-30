@@ -1,15 +1,24 @@
+extends layout
+
 block content
-
-h1 Sign in
-
-if message
+  //- Display error message if exists
+  if message
     p.error= message
 
-form(action="/login/password", method="post")
+  //- Sign-in form
+  form(action="/login/password", method="post")
     section
-        label(for="username") Username
-        input#username(name="username", type="text", autocomplete="username", required, autofocus)
+      label(for="username") Username: 
+      input#username(name="username", type="text", autocomplete="username", required, autofocus)
     section
-        label(for="current-password") Password
-        input#current-password(name="password", type="password", autocomplete="current-password", required)
-    button(type="submit") Sign in
+      label(for="current-password") Password: 
+      input#current-password(name="password", type="password", autocomplete="current-password", required)
+    section    
+      p
+        //- Sign-in button 
+        button(type="submit") Sign in
+
+    //- Sign-up link
+    p
+      | Don't have an account? 
+      a(href="/signup") Sign up
