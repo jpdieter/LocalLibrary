@@ -89,11 +89,35 @@ router.post('/login/password', passport.authenticate('local', {
 //     res.render('debug', { locals: res.locals, isAuthenticated: req.isAuthenticated(), sessionId: sessionId, sessionData: sessionData });
 // });
 
-// Route for handling logout
-router.post('/logout', function(req, res) {
-    req.logout(); // Logout the user
-    res.redirect('/'); // Redirect to the homepage or any other desired page after logout
-});
+
+router.get('/logout', function(req, res, next) {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+  });
+
+// // Route for handling logout
+// router.get('/logout', function(req, res) {
+//     console.log('Received logout request (GET)');
+//     req.logout(function(err) {
+//         if (err) {
+//             console.error('Logout failed:', err);
+//             // Handle the error, if needed
+//             return res.status(500).send('Logout failed');
+//         }
+//         console.log('User logged out successfully');
+//         const debugData = {
+//             session: req.session,
+//             user: req.user,
+//             message: "Logout successful"
+//         };
+//         res.render('debug', { data: debugData }); // Render debug.pug with debug data
+//         console.log('Logout response sent');
+//     });
+// });
+
+
 
 router.get('/signup', function(req, res, next) {
     res.render('signup');
