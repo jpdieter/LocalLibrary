@@ -8,6 +8,4 @@ const UserSchema = new Schema({
     salt: { type: String, required: true }
   });
 
-// UserSchema.plugin(passportLocalMongoose)
-
 module.exports = mongoose.model('User', UserSchema)
