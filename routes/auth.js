@@ -72,12 +72,19 @@ passport.use(new LocalStrategy(async function(username, password, done) {
 router.post('/login/password', passport.authenticate('local', {
     failureRedirect: '/login', // Redirect to login page if authentication fails
     failureFlash: true,
-}), function(req, res) {
+}), function(req, res, next) {
     // Redirect user to the intended page or homepage after successful login
     const redirectTo = req.session.returnTo || '/';
     delete req.session.returnTo; // Clear the stored redirect URL
-    res.redirect(redirectTo);
+    
+    // Render welcome message if login is successful
+    if (req.isAuthenticated()) {
+        res.render('index', { user: req.user });
+    } else {
+        res.redirect(redirectTo);
+    }
 });
+
 
 // // Route for rendering the debug view
 // router.get('/debug', function(req, res) {
@@ -119,8 +126,9 @@ router.get('/logout', function(req, res, next) {
 
 
 
+// Route for rendering the sign-up page
 router.get('/signup', function(req, res, next) {
-    res.render('signup');
+    res.render('signup', { user: req.user });
 });
 
 router.post('/signup', async function(req, res, next) {
