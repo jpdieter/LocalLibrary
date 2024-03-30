@@ -1,8 +1,13 @@
 extends layout
 
 block content
+  //- Create a flexbox container for centering content
+  .center-content-index 
+  //- Set up the greeting message based on user authentication
+  - let greetingMessage = user ? `Welcome to LocalLibrary, ${user.username}!` : "Welcome to LocalLibrary, a very basic Express website."
+
   h1= title
-  p Welcome to #[em LocalLibrary], a very basic Express website.
+  p!= greetingMessage
 
   h1 Dynamic content
 
@@ -14,5 +19,3 @@ block content
     li #[strong Copies available:] !{book_instance_available_count}
     li #[strong Authors:] !{author_count}
     li #[strong Genres:] !{genre_count}
-
-
