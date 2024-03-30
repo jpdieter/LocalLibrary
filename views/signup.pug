@@ -1,12 +1,23 @@
+extends layout
 
 block content
-
-h1 Sign up
-form(action="/signup", method="post")
-    section
-        label(for="username") Username
-        input#username(name="username", type="text", autocomplete="username", required)
-    section
-        label(for="new-password") Password
-        input#new-password(name="password", type="password", autocomplete="new-password", required)
-    button(type="submit") Sign up
+  head
+    title= title
+    // Other head elements...
+  body
+    // Body content...
+    if user
+      // Show authenticated user content
+      p You are already signed in as #{user.username}. <!-- Display username -->
+      a(href="/logout") Logout
+    else
+      // Show sign-up form for non-authenticated users
+      h1 Sign up
+      form(action="/signup", method="post")
+        section
+          label(for="username") Username: 
+          input#username(name="username", type="text", autocomplete="username", required)
+        section
+          label(for="new-password") Password:    
+          input#new-password(name="password", type="password", autocomplete="new-password", required)
+        button(type="submit") Sign up
