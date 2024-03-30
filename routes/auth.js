@@ -1,126 +1,126 @@
 const express = require('express');
+const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const crypto = require('crypto');
-const router = express.Router();
 const User = require('../models/users');
 const flash = require('connect-flash');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 // Initialize connect-flash middleware
 router.use(flash());
 
-// Middleware to log errors
-router.use((err, req, res, next) => {
-  console.error(err.stack);
-  next(err);
+// Serialization
+passport.serializeUser(function(user, done) {
+    done(null, user._id);
 });
 
-router.get('/login', function(req, res, next) {
-  // Render the login page and pass the flashed error message if it exists
-  res.render('login', { message: req.flash('error') });
-});
-
-passport.use(new LocalStrategy(async function(username, password, done) {
-  try {
-    const user = await User.findOne({ username: username });
-
-    if (!user) {
-      return done(null, false, { message: 'Incorrect username or password.' });
-    }
-
-    // Use the user's salt from the database
-    const salt = user.salt;
-
-    // Convert the password to a buffer
-    const passwordBuffer = Buffer.from(password, 'utf-8');
-
-    // Generate the hashed password using the input password and user's salt
-    crypto.pbkdf2(passwordBuffer, salt, 310000, 32, 'sha256', function(err, derivedKey) {
-      if (err) { 
-        console.error(err); // Log the error
-        return done(err); 
-      }
-
-      // Convert the derived key to a string
-      const hashedPassword = derivedKey.toString('base64');
-
-      // Compare the hashed password from the database with the generated hashed password
-      if (hashedPassword !== user.hashed_password) {
-        return done(null, false, { message: 'Incorrect username or password.' });
-      }
-
-      return done(null, user);
-    });
-  } catch (err) {
-    console.error(err); // Log the error
-    return done(err);
-  }
-}));
-
-router.post('/login/password', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true
-}));
-
-router.post('/logout', function(req, res, next) {
-    req.logout(function(err) {
-      if (err) { return next(err); }
-      res.redirect('/');
-    });
-  });  
-
-  router.get('/signup', function(req, res, next) {
-    res.render('signup');
-  });
-
-  router.post('/signup', async function(req, res, next) {
-    try {
-      // Generate salt
-      const salt = crypto.randomBytes(16).toString('hex');
-  
-      // Hash the password
-      const hashedPassword = await new Promise((resolve, reject) => {
-        crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', (err, derivedKey) => {
-          if (err) return reject(err);
-          resolve(derivedKey.toString('base64'));
+passport.deserializeUser(function(id, done) {
+    User.findById(id)
+        .exec()
+        .then(user => {
+            done(null, user);
+        })
+        .catch(err => {
+            done(err, null);
         });
-      });
-  
-      // Create a new user document
-      const newUser = new User({
-        username: req.body.username,
-        hashed_password: hashedPassword,
-        salt: salt
-      });
-  
-      // Save the user document to the database
-      await newUser.save();
-  
-      // Log in the user
-      req.login(newUser, function(err) {
-        if (err) { return next(err); }
-        res.redirect('/');
-      });
-    } catch (err) {
-      next(err);
-    }
-  });
-  
-  module.exports = router;
-  
+});
 
-passport.serializeUser(function(user, cb) {
-    process.nextTick(function() {
-      cb(null, { id: user.id, username: user.username });
-    });
-  });
-  
-  passport.deserializeUser(function(user, cb) {
-    process.nextTick(function() {
-      return cb(null, user);
-    });
-  });
+
+// Route for rendering login page
+router.get('/login', function(req, res, next) {
+    // Set the intended URL in the session
+    req.session.returnTo = req.originalUrl;
+    res.render('login', { message: req.flash('error'), user: req.user });
+});
+
+
+// Local authentication strategy
+passport.use(new LocalStrategy(async function(username, password, done) {
+    try {
+        const user = await User.findOne({ username: username });
+
+        if (!user) {
+            return done(null, false, { message: 'Incorrect username or password.' });
+        }
+
+        const salt = user.salt;
+        const passwordBuffer = Buffer.from(password, 'utf-8');
+
+        crypto.pbkdf2(passwordBuffer, salt, 310000, 32, 'sha256', function(err, derivedKey) {
+            if (err) { 
+                console.error(err);
+                return done(err); 
+            }
+
+            const hashedPassword = derivedKey.toString('base64');
+
+            if (hashedPassword !== user.hashed_password) {
+                return done(null, false, { message: 'Incorrect username or password.' });
+            }
+
+            return done(null, user);
+        });
+    } catch (err) {
+        console.error(err);
+        return done(err);
+    }
+}));
+
+// Route for handling login form submission
+router.post('/login/password', passport.authenticate('local', {
+    failureRedirect: '/login', // Redirect to login page if authentication fails
+    failureFlash: true,
+}), function(req, res) {
+    // Redirect user to the intended page or homepage after successful login
+    const redirectTo = req.session.returnTo || '/';
+    delete req.session.returnTo; // Clear the stored redirect URL
+    res.redirect(redirectTo);
+});
+
+// // Route for rendering the debug view
+// router.get('/debug', function(req, res) {
+//     // Pass the session data to the template
+//     const sessionData = req.session;
+//     const sessionId = req.sessionID;
+    
+//     // Render the debug view to display res.locals, isAuthenticated, and session ID
+//     res.render('debug', { locals: res.locals, isAuthenticated: req.isAuthenticated(), sessionId: sessionId, sessionData: sessionData });
+// });
+
+// Route for handling logout
+router.post('/logout', function(req, res) {
+    req.logout(); // Logout the user
+    res.redirect('/'); // Redirect to the homepage or any other desired page after logout
+});
+
+router.get('/signup', function(req, res, next) {
+    res.render('signup');
+});
+
+router.post('/signup', async function(req, res, next) {
+    try {
+        const salt = crypto.randomBytes(16).toString('hex');
+        const hashedPassword = await new Promise((resolve, reject) => {
+            crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', (err, derivedKey) => {
+                if (err) return reject(err);
+                resolve(derivedKey.toString('base64'));
+            });
+        });
+        const newUser = new User({
+            username: req.body.username,
+            hashed_password: hashedPassword,
+            salt: salt
+        });
+        await newUser.save();
+        req.login(newUser, function(err) {
+            if (err) { return next(err); }
+            res.redirect('/');
+        });
+    } catch (err) {
+        next(err);
+    }
+});
 
 module.exports = router;
