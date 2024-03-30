@@ -52,22 +52,25 @@ app.use(cookieParser());
 app.use(compression()); // Compress all routes
 app.use(express.static(path.join(__dirname, 'public'))); //serve all static files in the /public directory
 
+// Ensure that process.env.SECRET_KEY is set and use it as the secret
+const secretKey = process.env.SECRET_KEY 
+
+// Add session middleware before any route handlers
+app.use(session({
+    secret: secretKey,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {secure: false},
+    store: MongoStore.create({ 
+        mongoUrl: process.env.DATABASE_URL,
+        ttl: 24 * 60 * 60
+    })
+}));
 
 // Initialize Passport and add passport.initialize() middleware
 app.use(passport.initialize());
 
-// Set up session middleware with connect-mongo as the store
-app.use(session({
-  secret: process.env.SECRET_KEY,
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({ 
-    mongoUrl: process.env.DATABASE_URL, // Provide your MongoDB connection URL here
-    ttl: 24 * 60 * 60 // session TTL in seconds (optional)
-  })
-}));
-
-// Use passport.session() middleware after session middleware
+// Use passport.session() middleware to enable persistent login sessions
 app.use(passport.session());
 
 // Add helmet to the middleware chain.
