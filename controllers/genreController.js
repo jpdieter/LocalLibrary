@@ -9,6 +9,7 @@ exports.genre_list = asyncHandler(async (req, res, next) => {
     res.render("genre_list", {
       title: "Genre List",
       list_genres: allGenres,
+      user: req.user,
     });
   });
 
@@ -30,13 +31,14 @@ exports.genre_detail = asyncHandler(async (req, res, next) => {
       title: "Genre Detail",
       genre: genre,
       genre_books: booksInGenre,
+      user: req.user,
     });
   });
   
 
 // Display Genre create form on GET.
 exports.genre_create_get = (req, res, next) => {
-    res.render("genre_form", { title: "Create Genre" });
+    res.render("genre_form", { title: "Create Genre", user: req.user });
   };
   
 // Handle Genre create on POST.
@@ -53,7 +55,7 @@ exports.genre_create_post = [
       const errors = validationResult(req);
   
       // Create a genre object with escaped and trimmed data.
-      const genre = new Genre({ name: req.body.name });
+      const genre = new Genre({ name: req.body.name, });
   
       if (!errors.isEmpty()) {
         // There are errors. Render the form again with sanitized values/error messages.
@@ -61,6 +63,7 @@ exports.genre_create_post = [
           title: "Create Genre",
           genre: genre,
           errors: errors.array(),
+          user: req.user,
         });
         return;
       } else {
@@ -97,6 +100,7 @@ exports.genre_delete_get = asyncHandler(async (req, res, next) => {
         title: "Delete Genre",
         genre: genre,
         genre_books: booksInGenre,
+        user: req.user,
     })
 });
 
@@ -121,6 +125,7 @@ exports.genre_update_get = asyncHandler(async (req, res, next) => {
         res.render("genre_form", {
           title: "Update Genre",
           genre: genre,
+          user: req.user,
         });
     }); 
 
@@ -149,6 +154,7 @@ exports.genre_update_post = [
           title: "Update Genre",
           genre: genre,
           errors: errors.array(),
+          user: req.user,
         });
         return;
       } else {

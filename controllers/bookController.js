@@ -32,6 +32,7 @@ exports.index = asyncHandler(async (req, res, next) => {
     book_instance_available_count: numAvailableBookInstances,
     author_count: numAuthors,
     genre_count: numGenres,
+    user: req.user,
   });
 });
 
@@ -43,7 +44,7 @@ exports.book_list = asyncHandler(async (req, res, next) => {
     .populate("author")
     .exec();
 
-  res.render("book_list", { title: "Book List", book_list: allBooks });
+  res.render("book_list", { title: "Book List", book_list: allBooks, user: req.user});
 });
 
 // Display detail page for a specific book.
@@ -65,6 +66,7 @@ exports.book_detail = asyncHandler(async (req, res, next) => {
       title: book.title,
       book: book,
       book_instances: bookInstances,
+      user: req.user,
     });
   });
   
@@ -81,6 +83,7 @@ exports.book_create_get = asyncHandler(async (req, res, next) => {
       title: "Create Book",
       authors: allAuthors,
       genres: allGenres,
+      user: req.user
     });
   });
   
@@ -147,6 +150,7 @@ exports.book_create_post = [
           genres: allGenres,
           book: book,
           errors: errors.array(),
+          user: req.user
         });
       } else {
         // Data from form is valid. Save book.
@@ -174,6 +178,7 @@ exports.book_delete_get = asyncHandler(async (req, res, next) => {
     title: "Delete Book",
     book: book,
     book_instances: bookInstances,
+    user: req.user
   });
 });
 
@@ -191,6 +196,7 @@ exports.book_delete_post = asyncHandler(async (req, res, next) => {
             title: "Delete Book",
             book: book,
             book_instances: bookInstances,
+            user: req.user
           });
         return;
       } else {
@@ -226,6 +232,7 @@ exports.book_update_get = asyncHandler(async (req, res, next) => {
       authors: allAuthors,
       genres: allGenres,
       book: book,
+      user: req.user
     });
   });
   
@@ -293,6 +300,7 @@ exports.book_update_post = [
           genres: allGenres,
           book: book,
           errors: errors.array(),
+          user: req.user
         });
         return;
       } else {

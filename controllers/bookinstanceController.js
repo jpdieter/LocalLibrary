@@ -12,6 +12,7 @@ exports.bookinstance_list = asyncHandler(async (req, res, next) => {
     res.render("bookinstance_list", {
       title: "Book Instance List",
       bookinstance_list: allBookInstances,
+      user: req.user,
     });
   });  
 
@@ -32,6 +33,7 @@ exports.bookinstance_detail = asyncHandler(async (req, res, next) => {
     res.render("bookinstance_detail", {
       title: "Book:",
       bookinstance: bookInstance,
+      user: req.user,
     });
   });
   
@@ -42,6 +44,7 @@ exports.bookinstance_create_get = asyncHandler(async (req, res, next) => {
     res.render("bookinstance_form", {
       title: "Create BookInstance",
       book_list: allBooks,
+      user: req.user,
     });
   });
   
@@ -83,6 +86,7 @@ exports.bookinstance_create_post = [
           selected_book: bookInstance.book._id,
           errors: errors.array(),
           bookinstance: bookInstance,
+          user: req.user,
         });
         return;
       } else {
@@ -108,6 +112,7 @@ exports.bookinstance_delete_get = asyncHandler(async (req, res, next) => {
     res.render("bookinstance_delete", {
       title: "Delete BookInstance",
       bookinstance: bookInstance,
+      user: req.user,
     });
   });
 
@@ -139,6 +144,7 @@ exports.bookinstance_update_get = asyncHandler(async (req, res, next) => {
         book_list: allBooks,
         selected_book: bookInstance.book._id,
         bookinstance: bookInstance,
+        user: req.user,
     });
   });
 
@@ -181,6 +187,7 @@ exports.bookinstance_update_post = [
                 selected_book: bookInstance.book._id,
                 bookinstance: bookInstance,
                 errors: errors.array(),
+                user: req.user
             });
             return;
           } else {

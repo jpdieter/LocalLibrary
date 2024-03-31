@@ -10,6 +10,7 @@ exports.author_list = asyncHandler(async (req, res, next) => {
     const allAuthors = await Author.find().sort({ family_name: 1 }).exec();
     res.render("author_list", {
       title: "Author List",
+      user: req.user,
       author_list: allAuthors,
     });
   });
@@ -34,13 +35,14 @@ exports.author_detail = asyncHandler(async (req, res, next) => {
       title: "Author Detail",
       author: author,
       author_books: allBooksByAuthor,
+      user: req.user,
     });
   });
   
 
 // Display Author create form on GET.
 exports.author_create_get = (req, res, next) => {
-    res.render("author_form", { title: "Create Author" });
+    res.render("author_form", { title: "Create Author", user: req.user });
   };
   
 
@@ -87,6 +89,7 @@ exports.author_create_post = [
           title: "Create Author",
           author: author,
           errors: errors.array(),
+          user: req.user,
         });
         return;
       } else {
@@ -118,6 +121,7 @@ exports.author_delete_get = asyncHandler(async (req, res, next) => {
       title: "Delete Author",
       author: author,
       author_books: allBooksByAuthor,
+      user: req.user,
     });
   });
   
@@ -136,6 +140,7 @@ exports.author_delete_post = asyncHandler(async (req, res, next) => {
         title: "Delete Author",
         author: author,
         author_books: allBooksByAuthor,
+        user: req.user,
       });
       return;
     } else {
@@ -156,7 +161,7 @@ exports.author_update_get = asyncHandler(async (req, res, next) => {
       return next(err);
     }
   
-    res.render("author_form", { title: "Update Author", author: author });
+    res.render("author_form", { title: "Update Author", author: author, user: req.user, });
   });
 
 // Handle Author update on POST.
@@ -205,6 +210,7 @@ exports.author_update_post = [
           title: "Update Author",
           author: author,
           errors: errors.array(),
+          user: req.user,
         });
         return;
       } else {
