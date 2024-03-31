@@ -7,6 +7,10 @@ const User = require('../models/users');
 const flash = require('connect-flash');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const Book = require("../models/book");
+const Author = require("../models/author");
+const Genre = require("../models/genre");
+const BookInstance = require("../models/bookinstance");
 
 // Initialize connect-flash middleware
 router.use(flash());
@@ -68,22 +72,48 @@ passport.use(new LocalStrategy(async function(username, password, done) {
     }
 }));
 
-// Route for handling login form submission
+const asyncHandler = require('express-async-handler');
+
 router.post('/login/password', passport.authenticate('local', {
     failureRedirect: '/login', // Redirect to login page if authentication fails
     failureFlash: true,
-}), function(req, res, next) {
+}), asyncHandler(async (req, res, next) => {
     // Redirect user to the intended page or homepage after successful login
     const redirectTo = req.session.returnTo || '/';
     delete req.session.returnTo; // Clear the stored redirect URL
     
-    // Render welcome message if login is successful
+    // Check if the user is authenticated
     if (req.isAuthenticated()) {
-        res.render('index', { user: req.user });
+        // Get details of books, book instances, authors, and genre counts
+        const [
+            numBooks,
+            numBookInstances,
+            numAvailableBookInstances,
+            numAuthors,
+            numGenres,
+        ] = await Promise.all([
+            Book.countDocuments({}).exec(),
+            BookInstance.countDocuments({}).exec(),
+            BookInstance.countDocuments({ status: "Available" }).exec(),
+            Author.countDocuments({}).exec(),
+            Genre.countDocuments({}).exec(),
+        ]);
+
+        // Render the index page with the retrieved data
+        res.render("index", {
+            title: "Local Library Home",
+            user: req.user,
+            book_count: numBooks,
+            book_instance_count: numBookInstances,
+            book_instance_available_count: numAvailableBookInstances,
+            author_count: numAuthors,
+            genre_count: numGenres,
+        });
     } else {
+        // Redirect to the intended page or homepage if the user is not authenticated
         res.redirect(redirectTo);
     }
-});
+}));
 
 
 // // Route for rendering the debug view
@@ -96,7 +126,7 @@ router.post('/login/password', passport.authenticate('local', {
 //     res.render('debug', { locals: res.locals, isAuthenticated: req.isAuthenticated(), sessionId: sessionId, sessionData: sessionData });
 // });
 
-
+// Route for logout
 router.get('/logout', function(req, res, next) {
     req.logout(function(err) {
       if (err) { return next(err); }
@@ -104,31 +134,11 @@ router.get('/logout', function(req, res, next) {
     });
   });
 
-// // Route for handling logout
-// router.get('/logout', function(req, res) {
-//     console.log('Received logout request (GET)');
-//     req.logout(function(err) {
-//         if (err) {
-//             console.error('Logout failed:', err);
-//             // Handle the error, if needed
-//             return res.status(500).send('Logout failed');
-//         }
-//         console.log('User logged out successfully');
-//         const debugData = {
-//             session: req.session,
-//             user: req.user,
-//             message: "Logout successful"
-//         };
-//         res.render('debug', { data: debugData }); // Render debug.pug with debug data
-//         console.log('Logout response sent');
-//     });
-// });
-
-
-
 // Route for rendering the sign-up page
 router.get('/signup', function(req, res, next) {
-    res.render('signup', { user: req.user });
+    req.session.returnTo = req.originalUrl;
+    res.render('signup', { message: req.flash('error'), user: req.user });
+    
 });
 
 router.post('/signup', async function(req, res, next) {
@@ -148,7 +158,11 @@ router.post('/signup', async function(req, res, next) {
         await newUser.save();
         req.login(newUser, function(err) {
             if (err) { return next(err); }
-            res.redirect('/');
+            if (req.isAuthenticated()) {
+                res.render('index', { user: req.user }); // Render welcome page if user is authenticated
+            } else {
+                res.redirect('/'); // Redirect to homepage if authentication fails
+            }
         });
     } catch (err) {
         next(err);

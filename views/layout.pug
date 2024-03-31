@@ -41,12 +41,11 @@ html(lang='en')
               //- Library Staff title
               h6 Access
               li
-                if isAuthenticated
+                if user
                   a(href="/logout") Logout
                 else
                   a(href="/login") Sign In
               li
-                if !isAuthenticated
                   a(href="/signup") Sign Up
         .col-sm-10
           block content
