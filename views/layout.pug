@@ -12,40 +12,26 @@ html(lang='en')
     .container-fluid
       .row
         .col-sm-2
-          block sidebar
-            ul.sidebar-nav
-              li
-                a(href='/catalog') Home
-              li
-                a(href='/catalog/books') All books
-              li
-                a(href='/catalog/authors') All authors
-              li
-                a(href='/catalog/genres') All genres
-              li
-                a(href='/catalog/bookinstances') All book-instances
-              li
-                hr
-              //- Library Staff title
-              h6 Library Staff
-              li
-                a(href='/catalog/author/create') Create new author
-              li
-                a(href='/catalog/genre/create') Create new genre
-              li
-                a(href='/catalog/book/create') Create new book
-              li
-                a(href='/catalog/bookinstance/create') Create new book instance (copy)
-              li
-                hr
-              //- Library Staff title
-              h6 Access
-              li
-                if user
-                  a(href="/logout") Logout
-                else
-                  a(href="/login") Sign In
-              li
-                  a(href="/signup") Sign Up
+          div.list-group.sidebar-nav
+            a.list-group-item.list-group-item-action.active(href='/catalog') Home
+            a.list-group-item.list-group-item-action(href='/catalog/books') All books
+            a.list-group-item.list-group-item-action(href='/catalog/authors') All authors
+            a.list-group-item.list-group-item-action(href='/catalog/genres') All genres
+            a.list-group-item.list-group-item-action(href='/catalog/bookinstances') All book-instances
+            //- Library Staff title
+            div(style="margin-top: 10px;")
+            h6.library-staff Library Staff
+            a.list-group-item.list-group-item-action(href='/catalog/author/create') Create new author
+            a.list-group-item.list-group-item-action(href='/catalog/genre/create') Create new genre
+            a.list-group-item.list-group-item-action(href='/catalog/book/create') Create new book
+            a.list-group-item.list-group-item-action(href='/catalog/bookinstance/create') Create new book instance (copy)
+            //- Library Staff title
+            div(style="margin-top: 10px;")
+            h6.access Access
+            if user
+              a.list-group-item.list-group-item-action(href="/logout") Logout
+            else
+              a.list-group-item.list-group-item-action(href="/login") Sign In
+              a.list-group-item.list-group-item-action(href="/signup") Sign Up
         .col-sm-10
           block content
