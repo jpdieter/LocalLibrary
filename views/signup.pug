@@ -1,23 +1,38 @@
 extends layout
 
 block content
-  head
-    title= title
-    // Other head elements...
-  body
-    // Body content...
-    if user
-      // Show authenticated user content
-      p You are already signed in as #{user.username}. <!-- Display username -->
-      a(href="/logout") Logout
-    else
-      // Show sign-up form for non-authenticated users
-      h1 Sign up
-      form(action="/signup", method="post")
-        section
-          label(for="username") Username: 
-          input#username(name="username", type="text", autocomplete="username", required)
-        section
-          label(for="new-password") Password:    
-          input#new-password(name="password", type="password", autocomplete="new-password", required)
-        button(type="submit") Sign up
+  //- Create a flexbox container for centering content
+  .flex-container
+    .center-content
+      //- Display error message if exists
+      if user
+        //- Show authenticated user content
+        p You are already signed in as #{user.username}. <!-- Display username -->
+        a(href="/logout") Logout
+      else
+        //- Show sign-up form for non-authenticated users
+        div(style="margin-top: 15px;")
+        h1 Sign up
+        div(style="margin-bottom: 20px;")
+        form(action="/signup", method="post")
+          section
+            label(for="username") 
+              | Username: 
+              // Added space here
+              input#username(name="username", type="text", autocomplete="username", required, autofocus)
+          section
+            label(for="new-password") 
+              | Password:  
+            //- Added margin to the input field for extra space
+            input#new-password(name="password", type="password", autocomplete="new-password", required, style="margin-left: 10px;")
+          div(style="margin-top: 10px;")
+          //- Sign-up button 
+          button(type="submit", style="margin-top: 10px;") Register
+
+        //- Sign-in link
+        div(style="margin-top: 20px;")
+          | Already have an account? 
+          a(href="/signin") Sign in
+
+  //- Link to your stylesheet
+  link(rel="stylesheet", href="/stylesheets/style.css")
