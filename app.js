@@ -53,13 +53,13 @@ app.use(compression()); // Compress all routes
 app.use(express.static(path.join(__dirname, 'public'))); //serve all static files in the /public directory
 
 // Ensure that process.env.SECRET_KEY is set and use it as the secret
-const secretKey = process.env.SECRET_KEY 
+const secretKey = process.env.SECRET_KEY; 
 
 // Add session middleware before any route handlers
 app.use(session({
     secret: secretKey,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {secure: false},
     store: MongoStore.create({ 
         mongoUrl: process.env.DATABASE_URL,
@@ -78,7 +78,9 @@ app.use(passport.session());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
+      "default-src": ["'self'"],
       "script-src": ["'self'", "code.jquery.com", "cdn.jsdelivr.net"],
+      // Add other directives as necessary
     },
   }),
 );
