@@ -1,21 +1,32 @@
-extends layout
-
 block content
-  //- Create a flexbox container for centering content
-  .center-content-index 
-  //- Set up the greeting message based on user authentication
-  - let greetingMessage = user ? `Welcome to LocalLibrary, ${user.username}!` : "Welcome to LocalLibrary, a very basic Express website."
+  //- Include Bootstrap CSS
+  link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css", integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I", crossorigin="anonymous")
 
-  h1= title
-  p!= greetingMessage
+  //- Include your custom stylesheet
+  link(rel="stylesheet", href="/stylesheets/index.css")
 
-  h1 Dynamic content
-
-  p The library has the following record counts:
-
-  ul
-    li #[strong Books:] !{book_count}
-    li #[strong Copies:] !{book_instance_count}
-    li #[strong Copies available:] !{book_instance_available_count}
-    li #[strong Authors:] !{author_count}
-    li #[strong Genres:] !{genre_count}
+  //- Include the body content from the previous template
+  body.d-flex.text-center.text-white.bg-dark
+    .cover-container.d-flex.w-100.h-100.p-3.mx-auto.flex-column
+      header.mb-auto
+        div
+          h3.float-md-left.mb-0 LocalLibrary
+          nav.nav.nav-masthead.justify-content-center.float-md-right
+            a.nav-link.active(aria-current='page', href='/') Home
+            if user
+              a.nav-link(href='/signup') Register
+              a.nav-link(href='/logout') Logout
+            else
+              a.nav-link(href='/login') Login
+              a.nav-link(href='/signup') Register
+      main.px-3
+        h1 LocalLibrary
+        p.lead
+          - let greetingMessage = user ? `Welcome to LocalLibrary, ${user.username}!` : "Welcome to LocalLibrary, a very basic Express website."
+          | #{greetingMessage}
+          br
+          | Feel free to dive into our extensive collection and explore the variety of offerings available at the library.
+          br
+        a.btn.btn-lg.btn-secondary.font-weight-bold.border-white.bg-black(href='/collection') View Collection
+      footer.mt-auto.text-white-50
+        p &copy; 2024
