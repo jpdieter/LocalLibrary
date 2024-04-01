@@ -1,5 +1,4 @@
 //Route definitions. The controller functions are then called to handle the request.
-
 const express = require("express");
 const router = express.Router();
 const flash = require('connect-flash');
@@ -28,7 +27,6 @@ const isAuthenticated = (req, res, next) => {
       res.redirect("/login");
   }
 };
-
 
 /// BOOK ROUTES ///
 
