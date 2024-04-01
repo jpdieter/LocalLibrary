@@ -41,7 +41,18 @@ a {
   margin-top: 20px;
   padding: 0;
   list-style: none;
+  height: 100vh;
+  /* background-image: url('/images/libraryBackground.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.8; */
 }
+
+.sidebar-nav a {
+  color: white; /* Set the text color to white */
+}
+
+
 
 .center-content {
   padding: 30px 0;
@@ -53,9 +64,9 @@ a {
 .center-content-index {
   padding: 20px 0;
   text-align: center;
-  /* margin: 0 auto; */
   width: 50%;
-} 
+}
+ 
 
 .flex-container {
   display: flex;
@@ -69,3 +80,4 @@ a {
 .access {
   color: #FFA500; /* Change to the desired color */
 }
+
