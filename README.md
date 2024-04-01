@@ -4,7 +4,7 @@ Live app: https://locallibrary-5sbd.onrender.com
 
 Welcome to the LocalLibrary web application! This web app is designed to manage the resources of a local library, providing functionalities for both librarians and patrons to interact with the library's inventory and borrowing system.
 
-![Library Image](/images/LocalLibraryApp.png)
+![Library Image](public/images/LocalLibraryApp.png)
 
 ## Table of Contents
 - [Features](#features)
