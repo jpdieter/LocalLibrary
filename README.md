@@ -19,10 +19,11 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 - **Availability**: Check the availability of a book to see if it's currently checked out or available for borrowing.
 - **Borrowing Management**: Manage borrowing transactions, including check-out and check-in processes.
 - **Passport Authentication**: Secure authentication system using Passport.js, allowing users to log in securely with username and password, ensuring access control to restricted functionalities and routes.
+- **Responsive Design**: The application is designed to be responsive, ensuring that it works well on a variety of devices, including desktops, tablets, and smartphones.
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript.
+- **Frontend**: HTML, CSS, JavaScript, Bootstrap.
 - **Backend**: Node.js (with Express.js) for server-side logic and Passport.js for authentication.
 - **Database**: MongoDB (MongoDB Atlas for cloud-hosted MongoDB instances).
 - **Version Control**: Git for version control, with GitHub for repository hosting.
