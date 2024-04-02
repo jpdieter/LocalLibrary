@@ -8,30 +8,44 @@ html(lang='en')
     script(src="https://code.jquery.com/jquery-3.5.1.slim.min.js", integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj", crossorigin="anonymous")
     script(src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js", integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+", crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    .container-fluid
-      .row
-        .col-sm-2
-          div.list-group.sidebar-nav
-            a.list-group-item.list-group-item-action.active(href='/catalog') Home
-            a.list-group-item.list-group-item-action(href='/catalog/books') All books
-            a.list-group-item.list-group-item-action(href='/catalog/authors') All authors
-            a.list-group-item.list-group-item-action(href='/catalog/genres') All genres
-            a.list-group-item.list-group-item-action(href='/catalog/bookinstances') All book-instances
-            //- Library Staff title
-            div(style="margin-top: 10px;")
-            h6.library-staff Library Staff
-            a.list-group-item.list-group-item-action(href='/catalog/author/create') Create new author
-            a.list-group-item.list-group-item-action(href='/catalog/genre/create') Create new genre
-            a.list-group-item.list-group-item-action(href='/catalog/book/create') Create new book
-            a.list-group-item.list-group-item-action(href='/catalog/bookinstance/create') Create new book instance (copy)
-            //- Library Staff title
-            div(style="margin-top: 10px;")
-            h6.access Access
-            if user
-              a.list-group-item.list-group-item-action(href="/logout") Logout
-            else
-              a.list-group-item.list-group-item-action(href="/login") Sign In
-              a.list-group-item.list-group-item-action(href="/signup") Sign Up
-        .col-sm-10
-          block content
+body
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  a.navbar-brand(href='#') LocalLibrary
+  button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  .collapse.navbar-collapse#navbarSupportedContent
+    ul.navbar-nav.mr-auto
+      li.nav-item.active
+        a.nav-link(href='/catalog') Home
+          span.sr-only (current)
+      li.nav-item.dropdown
+        a.nav-link.dropdown-toggle(href='#', id='navbarDropdown', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Collection
+        .dropdown-menu(aria-labelledby='navbarDropdown')
+          a.dropdown-item(href='/catalog/books') Books
+          a.dropdown-item(href='/catalog/authors') Authors
+          a.dropdown-item(href='/catalog/genres') Genres
+          a.dropdown-item(href='/catalog/bookinstances') Book-instances
+      //- Extend with your links for books, authors, and genres
+      li.nav-item.dropdown
+        a.nav-link.dropdown-toggle(href='#', id='navbarDropdown', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Library Staff
+        .dropdown-menu(aria-labelledby='navbarDropdown')
+          a.dropdown-item(href='/catalog/book/create') Create Book
+          a.dropdown-item(href='/catalog/author/create') Create Author
+          a.dropdown-item(href='/catalog/genre/create') Create Genre
+          a.dropdown-item(href='/catalog/bookinstance/create') Create Book-instance
+      if user
+        li.nav-item
+          a.nav-link(href='/logout') Logout
+        li.nav-item
+          a.nav-link(href='/signup') Sign up
+      else  
+        li.nav-item
+          a.nav-link(href='/login') Sign in
+        li.nav-item
+          a.nav-link(href='/signup') Sign up
+    form.form-inline.my-2.my-lg-0
+      input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search')
+      button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+.col-sm-10
+  block content
+
