@@ -1,33 +1,34 @@
 extends layout
 
 block content
+  // Centered content
   .center-content-index 
-  h1= title
+    h1= title
 
-  p #[strong Do you really want to delete this BookInstance?]
+    // Link to stylesheet
+    link(rel='stylesheet', href='/stylesheets/style.css')
 
-  div(style="margin-left:20px")
+    // Message prompting for confirmation
+    p #[strong Do you really want to delete this BookInstance?]
 
-    p #[strong ID]: #{bookinstance._id}
+    // Details of the BookInstance
+    div(style="margin-left:20px")
 
-    p #[strong Title: ]
-      a(href=bookinstance.book.url) #{bookinstance.book.title}
+      // BookInstance ID
+      p #[strong ID]: #{bookinstance._id}
 
-    p #[strong Imprint:] #{bookinstance.imprint}
+      // Link to the BookInstance's book's detail page
+      p #[strong Title: ]
+        a(href=bookinstance.book.url) #{bookinstance.book.title}
 
-    p #[strong Status: ]
-      if bookinstance.status=='Available'
-        span.text-success #{bookinstance.status}
-      else if bookinstance.status=='Maintenance'
-        span.text-danger #{bookinstance.status}
-      else
-        span.text-warning #{bookinstance.status}
+      // Imprint of the BookInstance
+      p #[strong Imprint:] #{bookinstance.imprint}
 
-    if bookinstance.status!='Available'
-      p #[strong Due back:] #{bookinstance.due_back_formatted}
-
-  form(method='POST')
-    div.form-group
-      input#id.form-control(type='hidden',name='id', value=bookinstance._id )
-
-    button.btn.btn-primary(type='submit') Delete
+      // Status of the BookInstance
+      p #[strong Status: ]
+        if bookinstance.status=='Available'
+          span.text-success #{bookinstance.status}
+        else if bookinstance.status=='Maintenance'
+          span.text-danger #{bookinstance.status}
+        else
+          span.text-warning #{bookinstance.status}

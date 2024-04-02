@@ -1,14 +1,22 @@
 extends layout
 
 block content
+  // Centered content
   .center-content-index 
-  h1= title
-  
-  if list_genres.length
-    ul
-      each val in list_genres
-        li
-          a(href=val.url) #{val.name}
+    // Title of the page
+    h1= title
+    
+    // Check if there are genres
+    if list_genres.length
+      // Display genres in a list
+      ul.list-unstyled
+        each val in list_genres
+          li
+            // Link to the genre's detail page
+            a(href=val.url) #{val.name}
+    else
+      // Display message if no genres found
+      p There are no genres.
 
-  else
-    p There are no genres.
+  // Include the stylesheet
+  link(rel='stylesheet', href='/stylesheets/style.css')

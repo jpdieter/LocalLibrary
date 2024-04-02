@@ -1,41 +1,61 @@
 extends layout
 
 block content
+  // Centered content
   .center-content-index 
-  h1 Title: #{book.title}
+    h1 Title: #{book.title}
 
-  p #[strong Author: ]
-    a(href=book.author.url) #{book.author.name}
-  p #[strong Summary:] #{book.summary}
-  p #[strong ISBN:] #{book.isbn}
-  p #[strong Genre: ]
-    each val, index in book.genre
-      a(href=val.url) #{val.name}
-      if index < book.genre.length - 1
-        |,&nbsp;
+    // Link to stylesheet
+    link(rel='stylesheet', href='/stylesheets/style.css')
 
-  div(style='margin-left:20px;margin-top:20px')
-    h4 Copies
+    // Author
+    p #[strong Author: ]
+      a(href=book.author.url) !{book.author.name}
 
-    each val in book_instances
-      hr
-      if val.status=='Available'
-        p.text-success #{val.status}
-      else if val.status=='Maintenance'
-        p.text-danger #{val.status}
+    // Summary
+    p #[strong Summary:] #{book.summary}
+
+    // ISBN
+    p #[strong ISBN:] #{book.isbn}
+
+    // Genre
+    p #[strong Genre: ]
+      each val, index in book.genre
+        a(href=val.url) !{val.name}
+        if index < book.genre.length - 1
+          |,&nbsp;
+
+    // Copies section
+    div(style='margin-left:20px;margin-top:20px')
+      h4 Copies
+
+      // Check if there are book instances
+      if book_instances.length
+        each val in book_instances
+          hr
+          // Display book instance status
+          if val.status=='Available'
+            p.text-success !{val.status}
+          else if val.status=='Maintenance'
+            p.text-danger !{val.status}
+          else
+            p.text-warning !{val.status}
+          // Display book instance details
+          p #[strong Imprint:] !{val.imprint}
+          // Display due back date if not available
+          if val.status!='Available'
+            p #[strong Due back:] !{val.due_back}
+          // Display book instance ID
+          p #[strong Id: ]
+            a(href=val.url) !{val._id}
       else
-        p.text-warning #{val.status}
-      p #[strong Imprint:] #{val.imprint}
-      if val.status!='Available'
-        p #[strong Due back:] #{val.due_back}
-      p #[strong Id: ]
-        a(href=val.url) #{val._id}
+        // Display message if no book instances found
+        p There are no copies of this book in the library.
 
-    else
-      p There are no copies of this book in the library.
+    hr
 
-  hr
-  p
-    a(href=book.url+'/delete') Delete Book
-  p
-    a(href=book.url+'/update') Update Book
+    // Delete and update links
+    p
+      a(href=book.url+'/delete') Delete Book
+    p
+      a(href=book.url+'/update') Update Book

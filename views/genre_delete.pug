@@ -1,28 +1,30 @@
 extends layout
 
 block content
+  // Centered content
   .center-content-index 
-  h1 Delete Genre: #{genre.name}
 
-  if genre_books.length
+    // Title of the page
+    h1 Delete Genre: #{genre.name}
 
-    p #[strong Delete the following books before attempting to delete this genre.]
+    // Check if there are books associated with the genre
+    if genre_books.length
+      // Display books associated with the genre
+      p #[strong Delete the following books before attempting to delete this genre.]
+      div(style='margin-left:20px;margin-top:20px')
+        h4 Books
+        dl
+          each book in genre_books
+            dt
+              a(href=book.url) #{book.title}
+            dd #{book.summary}
 
-    div(style='margin-left:20px;margin-top:20px')
+    else
+      // Display confirmation message if no books found
+      p Do you really want to delete this Genre?
 
-      h4 Books
-
-      dl
-        each book in genre_books
-          dt
-            a(href=book.url) #{book.title}
-          dd #{book.summary}
-
-  else
-    p Do you really want to delete this Genre?
-
-    form(method='POST')
-      div.form-group
-        input#id.form-control(type='hidden', name='id', value=genre._id )
-
-      button.btn.btn-primary(type='submit') Delete
+      // Form for deleting the genre
+      form(method='POST')
+        div.form-group
+          input#id.form-control(type='hidden', name='id', value=genre._id )
+        button.btn.btn-primary(type='submit') Delete

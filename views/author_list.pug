@@ -1,14 +1,24 @@
 extends layout
 
 block content
-  .center-content-index 
-  h1= title
 
-  if author_list.length
-    ul
-      each author in author_list
-        li
-          a(href=author.url) #{author.name}
-          |  (#{author.date_of_birth_yyyy_mm_dd} - #{author.date_of_death_yyyy_mm_dd})
-  else
-    p There are no authors.
+  // Centered content
+  .center-content-index 
+    h1= title
+
+    // Link to stylesheet
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+    // Check if there are authors
+    if author_list.length
+      // Display authors in a list without bullets
+      ul.list-unstyled
+        each author in author_list
+          li
+            // Link to author's detail page
+            a(href=author.url) #{author.name}
+            // Display author's lifespan
+            |  (#{author.date_of_birth_yyyy_mm_dd} - #{author.date_of_death_yyyy_mm_dd})
+    else
+      // Display message if no authors found
+      p There are no authors.

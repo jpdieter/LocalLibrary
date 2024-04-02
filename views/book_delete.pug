@@ -1,48 +1,52 @@
 extends layout
 
 block content
+  // Centered content
   .center-content-index 
-  h1 #{title}: #{book.name}
+    h1 #{title}: #{book.name}
 
-  p #[strong Author: ]
-  a(href=book.author.url) #{book.author.name}
-  p #[strong Summary:] #{book.summary}
-  p #[strong ISBN:] #{book.isbn}
-  p #[strong Genre: ]
-    each val, index in book.genre
-      a(href=val.url) #{val.name}
-      if index < book.genre.length - 1
-        |,&nbsp;
+    // Link to stylesheet
+    link(rel='stylesheet', href='/stylesheets/style.css')
 
-  hr
+    // Author
+    p #[strong Author: ]
+    a(href=book.author.url) #{book.author.name}
 
-  if book_instances.length
+    // Summary
+    p #[strong Summary:] #{book.summary}
 
-    p #[strong Delete the following copies before attempting to delete this Book.]
+    // ISBN
+    p #[strong ISBN:] #{book.isbn}
 
-    div(style='margin-left:20px;margin-top:20px')
+    // Genre
+    p #[strong Genre: ]
+      each val, index in book.genre
+        a(href=val.url) #{val.name}
+        if index < book.genre.length - 1
+          |,&nbsp;
 
-      h4 Copies
+    hr
 
-      each book_copy in book_instances
-        hr
-        if book_copy.status=='Available'
-          p.text-success #{book_copy.status}
-        else if book_copy.status=='Maintenance'
-          p.text-danger #{book_copy.status}
-        else
-          p.text-warning #{book_copy.status}
-        p #[strong Imprint:] #{book_copy.imprint}
-        if book_copy.status!='Available'
-          p #[strong Due back:] #{book_copy.due_back}
-        p #[strong Id:]
-          a(href=book_copy.url) #{book_copy._id}
+    // Check if there are book instances
+    if book_instances.length
 
-  else
-    p Do you really want to delete this Book?
+      // Display message if there are book instances
+      p #[strong Delete the following copies before attempting to delete this Book.]
 
-    form(method='POST')
-      div.form-group
-        input#authorid.form-control(type='hidden', name='id', value=book._id )
-
-      button.btn.btn-primary(type='submit') Delete
+      // Display book instances
+      div(style='margin-left:20px;margin-top:20px')
+        h4 Copies
+        each book_copy in book_instances
+          hr
+          // Display book copy status
+          if book_copy.status=='Available'
+            p.text-success #{book_copy.status}
+          else if book_copy.status=='Maintenance'
+            p.text-danger #{book_copy.status}
+          else
+            p.text-warning #{book_copy.status}
+          // Display book copy details
+          p #[strong Imprint:] #{book_copy.imprint}
+          // Display due back date if not available
+          if book_copy.status!='Available'
+   

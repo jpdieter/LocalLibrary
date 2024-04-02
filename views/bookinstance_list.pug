@@ -1,24 +1,31 @@
 extends layout
 
 block content
+  // Centered content
   .center-content-index 
-  h1= title
 
-  if bookinstance_list.length
-    ul
-      each val in bookinstance_list
-        li
-          a(href=val.url) #{val.book.title} : #{val.imprint} -&nbsp;
-          if val.status=='Available'
-            span.text-success #{val.status}
-          else if val.status=='Maintenance'
-            span.text-danger #{val.status}
-          else
-            span.text-warning #{val.status}
-          if val.status != 'Available'
-            //span  (Due: #{val.due_back} )
-            span  (Due: #{val.due_back_formatted} )
+    // Title of the page
+    h1= title
 
+    // Check if there are book instances
+    if bookinstance_list.length
+      // Display book instances in a list
+      ul
+        each val in bookinstance_list
+          li
+            // Link to the book instance's detail page
+            a(href=val.url) #{val.book.title} : #{val.imprint} -&nbsp;
+            // Display status with appropriate color
+            if val.status=='Available'
+              span.text-success #{val.status}
+            else if val.status=='Maintenance'
+              span.text-danger #{val.status}
+            else
+              span.text-warning #{val.status}
+            // Display due back date if not available
+            if val.status != 'Available'
+              span  (Due: #{val.due_back_formatted} )
 
-  else
-    p There are no book copies in this library.
+    else
+      // Display message if no book instances found
+      p There are no book copies in this library.

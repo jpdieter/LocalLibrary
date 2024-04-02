@@ -63,9 +63,11 @@ a {
 
 .center-content-index {
   padding: 20px 0;
-  text-align: center;
+  text-align: left;
   width: 50%;
+  margin: 0 auto; /* Add this line to horizontally center the element */
 }
+
  
 
 .flex-container {
@@ -81,3 +83,11 @@ a {
   color: #FFA500; /* Change to the desired color */
 }
 
+/* Add custom CSS styles */
+.list-unstyled {
+  list-style-type: none; /* Remove default bullet points */
+}
+
+.list-unstyled li {
+  margin-bottom: 5px; /* Adjust spacing between list items */
+}

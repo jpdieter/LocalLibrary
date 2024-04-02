@@ -1,24 +1,32 @@
 extends layout
 
 block content
+  // Centered content
   .center-content-index 
-  h1 Genre: #{genre.name}
 
-  div(style='margin-left:20px;margin-top:20px')
+    // Title of the page
+    h1 Genre: #{genre.name}
 
-    h4 Books
-    if genre_books.length
-      dl
-        each book in genre_books
-          dt
-            a(href=book.url) #{book.title}
-          dd #{book.summary}
-    else
-      p This genre has no books.
+    div(style='margin-left:20px;margin-top:20px')
 
-  hr
-  p
-    a(href=genre.url+'/delete') Delete Genre
+      // Display books associated with the genre
+      h4 Books
+      if genre_books.length
+        dl
+          each book in genre_books
+            dt
+              a(href=book.url) #{book.title}
+            dd #{book.summary}
+      else
+        // Display message if no books found for the genre
+        p This genre has no books.
 
-  p
-    a(href=genre.url+'/update') Update Genre
+    hr
+
+    // Link to delete the genre
+    p
+      a(href=genre.url+'/delete') Delete Genre
+
+    // Link to update the genre
+    p
+      a(href=genre.url+'/update') Update Genre

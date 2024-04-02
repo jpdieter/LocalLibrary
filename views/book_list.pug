@@ -1,14 +1,23 @@
 extends layout
 
 block content
+  // Centered content
   .center-content-index 
-  h1= title
-  if book_list.length
-    ul
-      each book in book_list
-        li
-          a(href=book.url) #{book.title}
-          |  (#{book.author.name})
+    h1= title
 
-  else
-    p There are no books.
+    // Link to stylesheet
+    link(rel='stylesheet', href='/stylesheets/style.css')
+
+    // Check if there are books
+    if book_list.length
+      // Display books in a list
+      ul.list-unstyled
+        each book in book_list
+          li.list-unstyled
+            // Link to book's detail page
+            a(href=book.url) #{book.title}
+            // Display book's author
+            |  (#{book.author.name})
+    else
+      // Display message if no books found
+      p There are no books.

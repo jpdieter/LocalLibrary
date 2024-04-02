@@ -1,28 +1,39 @@
 extends layout
 
 block content
+  // Centered content
   .center-content-index 
 
-  h1 ID: #{bookinstance._id}
+    // Header displaying the BookInstance ID
+    h1 ID: #{bookinstance._id}
 
-  p #[strong Title: ]
-    a(href=bookinstance.book.url) #{bookinstance.book.title}
-  p #[strong Imprint:] #{bookinstance.imprint}
+    // Link to the BookInstance's book's detail page
+    p #[strong Title: ]
+      a(href=bookinstance.book.url) #{bookinstance.book.title}
 
-  p #[strong Status: ]
-    if bookinstance.status=='Available'
-      span.text-success #{bookinstance.status}
-    else if bookinstance.status=='Maintenance'
-      span.text-danger #{bookinstance.status}
-    else
-      span.text-warning #{bookinstance.status}
+    // Imprint of the BookInstance
+    p #[strong Imprint:] #{bookinstance.imprint}
 
-  if bookinstance.status!='Available'
-    p #[strong Due back:] #{bookinstance.due_back_formatted}
+    // Status of the BookInstance
+    p #[strong Status: ]
+      if bookinstance.status=='Available'
+        span.text-success #{bookinstance.status}
+      else if bookinstance.status=='Maintenance'
+        span.text-danger #{bookinstance.status}
+      else
+        span.text-warning #{bookinstance.status}
 
-  hr
-  p
-    a(href=bookinstance.url+'/delete') Delete instance
+    // Due back date if not available
+    if bookinstance.status!='Available'
+      p #[strong Due back:] #{bookinstance.due_back_formatted}
 
-  p
-    a(href=bookinstance.url+'/update') Update instance
+    // Horizontal line separator
+    hr
+
+    // Link to delete the BookInstance
+    p
+      a(href=bookinstance.url+'/delete') Delete instance
+
+    // Link to update the BookInstance
+    p
+      a(href=bookinstance.url+'/update') Update
