@@ -1,0 +1,21 @@
+extends layout
+
+block content
+
+  link(rel='stylesheet', href='/stylesheets/style.css')
+
+  .center-content-index 
+    h1= title
+    - let greetingMessage = user ? `Welcome to LocalLibrary, ${user.username}!` : "Welcome to LocalLibrary, a comprehensive online platform for book enthusiasts."
+    p!= greetingMessage
+
+    h3 Library Statistics
+
+    p Below are some statistics about our library collection:
+
+    ul.list-unstyled
+      li #[strong Total Books:] !{book_count}
+      li #[strong Total Copies:] !{book_instance_count}
+      li #[strong Available Copies:] !{book_instance_available_count}
+      li #[strong Total Authors:] !{author_count}
+      li #[strong Total Genres:] !{genre_count}
