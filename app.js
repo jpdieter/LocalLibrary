@@ -18,6 +18,7 @@ const usersRouter = require('./routes/users');
 const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
 const authRouter = require('./routes/auth');
 const collectionRouter = require('./routes/collection');
+const searchRouter = require('./routes/search');
 const app = express();
 
 // // Set up rate limiter: maximum of twenty requests per minute
@@ -92,6 +93,7 @@ app.use('/users', usersRouter);
 app.use('/catalog', catalogRouter); // Add catalog routes to middleware chain.
 app.use('/', authRouter); //any requests that match the routes defined in auth.js will be handled by that file.
 app.use('/collection', collectionRouter);
+app.use('/search', searchRouter); // Mount the /search route
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
