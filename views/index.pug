@@ -10,7 +10,7 @@ block content
     .cover-container.d-flex.w-100.h-100.p-3.mx-auto.flex-column
       header.mb-auto
         div
-          h3.float-md-left.mb-0 LocalLibrary
+          //- h3.float-md-left.mb-0 LocalLibrary
           nav.nav.nav-masthead.justify-content-center.float-md-right
             a.nav-link.active(aria-current='page', href='/') Home
             if user
@@ -22,7 +22,7 @@ block content
       main.px-3
         h1 LocalLibrary
         p.lead
-          - let greetingMessage = user ? `Welcome to LocalLibrary, ${user.username}!` : "Welcome to LocalLibrary, a very basic Express website."
+          - let greetingMessage = user ? `Welcome to LocalLibrary, ${user.username}!` : "Welcome to LocalLibrary, your virtual library hub."
           | #{greetingMessage}
           br
           | Feel free to dive into our extensive collection and explore the variety of offerings available at the library.
