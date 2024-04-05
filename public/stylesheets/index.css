@@ -15,7 +15,3 @@ background-color: #1e1e1e;
 a {
   color: var(--link-color);
 }
-
-.sidebar-nav a {
-  color: white; /* Set the text color to white */
-}
