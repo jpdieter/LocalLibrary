@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  .center-content-index 
+    link(rel="stylesheet", href="/stylesheets/stylesheet.css")
+
+    if results && results.length > 0
+      each result in results
+        p
+          a(href=result.url) #{result.title} by #{result.author.name}
+        // Display other information as needed
+    else
+      p No results found
