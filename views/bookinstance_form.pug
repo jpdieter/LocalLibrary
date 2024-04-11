@@ -34,4 +34,10 @@ block content
       // Select input for choosing the status
       div.form-group
         label(for='status') Status:
-    
+        select#status.form-control(name='status' required)
+          option(value='') --Please select a status--
+          option(value='Available' selected) Available
+          option(value='Loaned') Loaned
+          option(value='Maintenance') Maintenance
+
+      button.btn.btn-primary(type='submit', style='margin-bottom: 20px;') Submit
