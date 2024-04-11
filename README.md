@@ -15,9 +15,9 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 ## Features
 
 - **Book Catalog**: Browse through a catalog of books available at the local library.
-- **Search**: Search for books by title, author, genre, or other relevant criteria.
+- **Search**: Search for books by title, author, genre, or isbn.
 - **Availability**: Check the availability of a book to see if it's currently checked out or available for borrowing.
-- **Borrowing Management**: Manage borrowing transactions, including check-out and check-in processes.
+- **Management Interface** Access a dedicated management interface to add, edit, or remove books, authors, genres, and instances from the library's catalog. This interface provides library staff with the tools they need to efficiently manage the library's collection and ensure accurate records.
 - **Passport Authentication**: Secure authentication system using Passport.js, allowing users to log in securely with username and password, ensuring access control to restricted functionalities and routes.
 - **Responsive Design**: The application is designed to be responsive, ensuring that it works well on a variety of devices, including desktops, tablets, and smartphones.
 
