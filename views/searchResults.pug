@@ -1,14 +1,39 @@
 extends layout
 
 block content
-  .center-content-index 
+  //- Set the title tag
+  //- This will set the title of the page in the browser
+  .center-content-index
+
+    //- Link to stylesheet
     link(rel="stylesheet", href="/stylesheets/stylesheet.css")
 
-    if results && results.length > 0
+    //- Main content
+    h1(style="margin-bottom: 20px;")= title
+
+    //- Display books if there are any results
+    if bookResults && bookResults.length > 0
       ul
-        each result in results
+        each book in bookResults
           li
-            a(href=result.url) #{result.title} by #{result.author.name}
-        // Display other information as needed
-    else
-      p No results found
+            //- Link to book's URL
+            a(href=book.url)
+              //- Display book title, author, and ISBN
+              | #{book.title} by #{book.author.name} (ISBN: #{book.isbn})
+      //- Display other book information as needed
+
+    //- Display authors if there are any results
+    if authorResults && authorResults.length > 0
+      ul
+        each author in authorResults
+          li
+            //- Link to author's URL
+            a(href=author.url) #{author.name}
+      //- Display other author information as needed
+
+    //- Display genres if there are any results
+    if genreResults && genreResults.length > 0
+      ul
+        each genre in genreResults
+          li #{genre.name}
+      //- Display other genre information as needed
