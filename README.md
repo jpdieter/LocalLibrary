@@ -1,4 +1,4 @@
-# LocalLibrary Web App
+# LocalLibrary 
 
 ![Library Image](public/images/LocalLibraryApp.png)
 
