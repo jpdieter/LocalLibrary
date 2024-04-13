@@ -2,7 +2,7 @@
 
 ![Library Image](public/images/LocalLibraryApp.png)
 
-<!-- Live app: https://locallibrary-5sbd.onrender.com -->
+<!-- Live app: https://locallibrary-5sbd.onrender.com/ -->
 
 ## Introduction
 
@@ -13,6 +13,7 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 - [Technologies Used](#technologies-used)
 - [Security](#security)
 - [Acknowledgements](#acknowledgements)
+- [Running Locally](#running-locally)
 
 ## Features
 
@@ -44,3 +45,35 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 - We'd like to thank the open-source community for their contributions to the technologies used in this project.
 
 Happy Reading! 📚📖
+
+## Running Locally
+
+1. **Install MongoDB**.
+2. **Create Accounts**:
+   - Create a Cloudinary account to obtain an API key and secret code.
+   - Create a Mapbox account to get an access token.
+3. **Install Node**:
+   - You can use the Node Version Manager (nvm) for installation.
+4. **Clone Repository**:
+<code>
+git clone git@github.com:your-username/LocalLibrary.git
+cd LocalLibrary
+npm install
+</code>
+
+5. **SSH-Based Authentication** (optional):
+- If using SSH-based authentication:
+  ```
+  git clone git@github.com:your-username/LocalLibrary.git
+  ```
+6. **Environment Variables**:
+- Create a `.env` file or manually export variables in the terminal:
+  ```
+  cp sample.env .env
+  ```
+7. **Run the Application**:
+- Open another terminal and run:
+  - `mongod`
+- Run the application:
+  - `node app.js` or `nodemon app.js` if using nodemon.
+- Access the application at `localhost:3000`.
