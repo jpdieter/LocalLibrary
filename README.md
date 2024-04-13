@@ -55,7 +55,8 @@ Happy Reading! 📚📖
 3. **Install Node**:
    - You can use the Node Version Manager (nvm) for installation.
 4. **Clone Repository**:
-```git clone git@github.com:your-username/LocalLibrary.git
+```
+git clone git@github.com:your-username/LocalLibrary.git
 cd LocalLibrary
 npm install
 ```
