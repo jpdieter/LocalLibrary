@@ -33,9 +33,9 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 
 ## Security
 
-- Implement strict input validation to prevent injection attacks (SQL injection, XSS).
-- Use Content Security Policy (CSP) to mitigate XSS attacks by defining trusted sources.
-- Handle errors securely to avoid exposing sensitive information.
+- Implement strict input validation to prevent injection attacks.
+- Use Content Security Policy (CSP) to mitigate XSS attacks.
+- Handle errors securely to avoid sensitive information exposure.
 - Keep dependencies updated to address security vulnerabilities.
 
 ## Acknowledgements
