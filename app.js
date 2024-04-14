@@ -14,7 +14,6 @@ const MongoStore = require('connect-mongo');
 
 //These modules/files contain code for handling particular sets of related "routes" (URL paths). 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
 const authRouter = require('./routes/auth');
 const collectionRouter = require('./routes/collection');
@@ -89,7 +88,6 @@ app.use(
 
 //route handlers
 app.use('/', indexRouter); //Require the routes for the main pages
-app.use('/users', usersRouter);
 app.use('/catalog', catalogRouter); // Add catalog routes to middleware chain.
 app.use('/', authRouter); //any requests that match the routes defined in auth.js will be handled by that file.
 app.use('/collection', collectionRouter);
@@ -113,4 +111,3 @@ app.use(function(err, req, res, next) {
 
 //export to be used by /bin/wwww
 module.exports = app;
-
