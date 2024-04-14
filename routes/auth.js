@@ -150,7 +150,7 @@ router.post('/resetpassword', function (req, res) {
         .then(user => {
             // If user not found, set an error flash message and render the reset password page
             if (!user) {
-                req.flash('error', 'User not found');
+                req.flash('error', 'Incorrect username or password');
                 return res.render('resetpassword', { user: req.user, error: req.flash('error') });
             }
 
