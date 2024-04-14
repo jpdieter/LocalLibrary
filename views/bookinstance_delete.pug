@@ -32,6 +32,9 @@ block content
           span.text-danger #{bookinstance.status}
         else
           span.text-warning #{bookinstance.status}
-          
-      form(method='POST' action=bookinstance.url+'/delete')
-        button.btn.btn-danger(type='submit') Delete Book Instance
+
+      form(method='POST')
+         div.form-group
+          input#id.form-control(type='hidden',name='id', value=bookinstance._id )
+
+         button.btn.btn-danger(type='submit') Delete Book Instance
