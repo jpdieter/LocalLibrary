@@ -8,7 +8,8 @@ const router = express.Router();
 
 // GET home page.
 router.get("/", function (req, res) {
-  res.render("index");
+  res.render("index", { user: req.user }); // Pass req.user to the template
 });
 
 module.exports = router;
+
