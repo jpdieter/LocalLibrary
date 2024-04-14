@@ -13,12 +13,11 @@ block content
           //- h3.float-md-left.mb-0 LocalLibrary
           nav.nav.nav-masthead.justify-content-center.float-md-right
             a.nav-link.active(aria-current='page', href='/') Home
+            a.nav-link.active(aria-current='page', href='/collection') Collection
             if user
-              a.nav-link(href='/signup') Register
               a.nav-link(href='/logout') Logout
             else
-              a.nav-link(href='/login') Login
-              a.nav-link(href='/signup') Register
+              a.nav-link(href='/login') Admin
       main.px-3
         h1 LocalLibrary
         p.lead
