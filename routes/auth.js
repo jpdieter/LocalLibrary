@@ -15,7 +15,6 @@ const BookInstance = require("../models/bookinstance");
 // Initialize connect-flash middleware
 router.use(flash());
 
-// Middleware to check if the user is authenticated
 const isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next(); // User is authenticated, continue to the next middleware or route handler
@@ -26,10 +25,10 @@ const isAuthenticated = (req, res, next) => {
         // Store the intended URL in the session
         req.session.returnTo = req.originalUrl;
         
-        // Redirect to the login page
-        res.redirect("/login");
+        // Redirect the user to the login page
+        res.redirect('/login'); // You should replace '/login' with your actual login route
     }
-  };
+}
 
 // Serialization
 passport.serializeUser(function(user, done) {
@@ -138,13 +137,13 @@ router.get('/logout', function(req, res, next) {
 });
 
 // Route for serving the changepassword template
-router.get('/resetpassword', function (req, res) {
+router.get('/resetpassword', isAuthenticated, function (req, res) {
     res.render('resetpassword', { user: req.user });
 });
 
 
 
-router.post('/resetpassword', function (req, res) {
+router.post('/resetpassword', isAuthenticated, function (req, res) {
     // Find the user based on the provided username
     User.findOne({ username: req.body.username })
         .then(user => {
