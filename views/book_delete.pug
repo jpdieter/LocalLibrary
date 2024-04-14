@@ -9,8 +9,9 @@ block content
     link(rel='stylesheet', href='/stylesheets/style.css')
 
     // Author
-    p #[strong Author: ]
-    a(href=book.author.url) #{book.author.name}
+    p 
+      strong Author: 
+      a(href=book.author.url) #{book.author.name}
 
     // Summary
     p #[strong Summary:] #{book.summary}
@@ -19,7 +20,8 @@ block content
     p #[strong ISBN:] #{book.isbn}
 
     // Genre
-    p #[strong Genre: ]
+    p 
+      strong Genre: 
       each val, index in book.genre
         a(href=val.url) #{val.name}
         if index < book.genre.length - 1
@@ -29,7 +31,6 @@ block content
 
     // Check if there are book instances
     if book_instances.length
-
       // Display message if there are book instances
       p #[strong Delete the following copies before attempting to delete this Book.]
 
@@ -49,4 +50,11 @@ block content
           p #[strong Imprint:] #{book_copy.imprint}
           // Display due back date if not available
           if book_copy.status!='Available'
-   
+    else
+      p Do you really want to delete this Book?
+
+    form(method='POST')
+      div.form-group
+        input#id.form-control(type='hidden',name='id', value=book._id )
+
+      button.btn.btn-primary(type='submit') Delete
