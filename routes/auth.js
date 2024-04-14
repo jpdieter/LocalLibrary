@@ -15,6 +15,22 @@ const BookInstance = require("../models/bookinstance");
 // Initialize connect-flash middleware
 router.use(flash());
 
+// Middleware to check if the user is authenticated
+const isAuthenticated = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        return next(); // User is authenticated, continue to the next middleware or route handler
+    } else {
+        // Set a flash error message
+        req.flash('error', 'Please sign in to access this resource.');
+        
+        // Store the intended URL in the session
+        req.session.returnTo = req.originalUrl;
+        
+        // Redirect to the login page
+        res.redirect("/login");
+    }
+  };
+
 // Serialization
 passport.serializeUser(function(user, done) {
     done(null, user._id);
@@ -31,14 +47,12 @@ passport.deserializeUser(function(id, done) {
         });
 });
 
-
 // Route for rendering login page
 router.get('/login', function(req, res, next) {
     // Set the intended URL in the session
     req.session.returnTo = req.originalUrl;
     res.render('login', { message: req.flash('error'), user: req.user });
 });
-
 
 // Local authentication strategy
 passport.use(new LocalStrategy(async function(username, password, done) {
@@ -100,7 +114,7 @@ router.post('/login/password', passport.authenticate('local', {
         ]);
 
         // Render the index page with the retrieved data
-        res.render("index", {
+        res.render("collection", {
             title: "Local Library Home",
             user: req.user,
             book_count: numBooks,
@@ -115,58 +129,51 @@ router.post('/login/password', passport.authenticate('local', {
     }
 }));
 
-
-// // Route for rendering the debug view
-// router.get('/debug', function(req, res) {
-//     // Pass the session data to the template
-//     const sessionData = req.session;
-//     const sessionId = req.sessionID;
-    
-//     // Render the debug view to display res.locals, isAuthenticated, and session ID
-//     res.render('debug', { locals: res.locals, isAuthenticated: req.isAuthenticated(), sessionId: sessionId, sessionData: sessionData });
-// });
-
 // Route for logout
 router.get('/logout', function(req, res, next) {
     req.logout(function(err) {
       if (err) { return next(err); }
       res.redirect('/');
     });
-  });
-
-// Route for rendering the sign-up page
-router.get('/signup', function(req, res, next) {
-    req.session.returnTo = req.originalUrl;
-    res.render('signup', { message: req.flash('error'), user: req.user });
-    
 });
 
-router.post('/signup', async function(req, res, next) {
-    try {
-        const salt = crypto.randomBytes(16).toString('hex');
-        const hashedPassword = await new Promise((resolve, reject) => {
-            crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', (err, derivedKey) => {
-                if (err) return reject(err);
-                resolve(derivedKey.toString('base64'));
-            });
-        });
-        const newUser = new User({
-            username: req.body.username,
-            hashed_password: hashedPassword,
-            salt: salt
-        });
-        await newUser.save();
-        req.login(newUser, function(err) {
-            if (err) { return next(err); }
-            if (req.isAuthenticated()) {
-                res.render('index', { user: req.user }); // Render welcome page if user is authenticated
-            } else {
-                res.redirect('/'); // Redirect to homepage if authentication fails
+// Route for serving the changepassword template
+router.get('/resetpassword', isAuthenticated, function (req, res) {
+    res.render('resetpassword', { user: req.user });
+});
+
+
+router.post('/resetpassword', isAuthenticated, function (req, res) {
+    // Find the user based on the provided username
+    User.findOne({ username: req.body.username })
+        .then(user => {
+            // If user not found, set an error flash message and render the reset password page
+            if (!user) {
+                req.flash('error', 'User not found');
+                return res.render('resetpassword', { user: req.user, error: req.flash('error') });
             }
+
+            // If user is found, attempt to change the password
+            return user.changePassword(req.body['current-password'], req.body['new-password'])
+                .then(() => {
+                    // If password change is successful, set a success flash message and render the reset password page
+                    req.flash('success', 'Successfully changed password');
+                    return res.render('resetpassword', { user: req.user, success: req.flash('success') });
+                })
+                .catch(err => {
+                    // If there's an error during password change, set an error flash message and render the reset password page
+                    req.flash('error', err.message || 'Failed to change password');
+                    return res.render('resetpassword', { user: req.user, error: req.flash('error') });
+                });
+        })
+        .catch(err => {
+            // If there's an error finding the user, set an error flash message and render the reset password page
+            req.flash('error', err.message || 'An error occurred');
+            return res.render('resetpassword', { user: req.user, error: req.flash('error') });
         });
-    } catch (err) {
-        next(err);
-    }
 });
+
+
+
 
 module.exports = router;
