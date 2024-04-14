@@ -42,7 +42,7 @@ exports.bookinstance_create_get = asyncHandler(async (req, res, next) => {
     const allBooks = await Book.find({}, "title").sort({ title: 1 }).exec();
   
     res.render("bookinstance_form", {
-      title: "Create BookInstance",
+      title: "Create Book Instance",
       book_list: allBooks,
       user: req.user,
     });
@@ -81,7 +81,7 @@ exports.bookinstance_create_post = [
         const allBooks = await Book.find({}, "title").sort({ title: 1 }).exec();
   
         res.render("bookinstance_form", {
-          title: "Create BookInstance",
+          title: "Create Book Instance",
           book_list: allBooks,
           selected_book: bookInstance.book._id,
           errors: errors.array(),
