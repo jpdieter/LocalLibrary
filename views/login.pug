@@ -27,17 +27,13 @@ block content
             input#current-password(name="password", type="password", autocomplete="current-password", required, style="margin-left: 10px;")
           //- Sign-in button 
           div(style="margin-top: 10px;")
-          button(type="submit", style="margin-top: 10px;") Sign in
+          button.btn.btn-primary(type="submit", style="margin-top: 10px;") Sign in
 
         //- Error message wrapped in a div
         div(style="margin-top: 20px;")
           if message
             p.error= message
 
-        //- Sign-up link
-        div(style="margin-top: 20px;")
-          | Don't have an account? 
-          a(href="/signup") Sign up
 
   //- Link to your stylesheet
   link(rel="stylesheet", href="/stylesheets/style.css")
