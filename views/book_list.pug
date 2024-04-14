@@ -7,13 +7,15 @@ block content
 
     // Link to stylesheet
     link(rel='stylesheet', href='/stylesheets/style.css')
-
+    if user
+      p.mb-3
+        a(href='/catalog/book/create', class='btn btn-primary admin-links') Create book 
     // Check if there are books
     if book_list.length
       // Display books in a list
-      ul.list-unstyled
+      ul
         each book in book_list
-          li.list-unstyled
+          li
             // Link to book's detail page
             a(href=book.url) #{book.title}
             // Display book's author
@@ -21,3 +23,5 @@ block content
     else
       // Display message if no books found
       p There are no books.
+
+

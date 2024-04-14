@@ -5,7 +5,9 @@ block content
   .center-content-index 
     // Title of the page
     h1= title
-    
+    if user
+      p.mb-3
+        a(href='/catalog/genre/create', class='btn btn-primary admin-links') Create genre 
     // Check if there are genres
     if list_genres.length
       // Display genres in a list

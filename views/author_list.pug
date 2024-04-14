@@ -5,7 +5,9 @@ block content
   // Centered content
   .center-content-index 
     h1= title
-
+    if user
+      p.mb-3
+        a(href='/catalog/author/create', class='btn btn-primary admin-links') Create author
     // Link to stylesheet
     link(rel='stylesheet', href='/stylesheets/style.css')
 
@@ -22,3 +24,4 @@ block content
     else
       // Display message if no authors found
       p There are no authors.
+      // Only display delete, update, and create links if user is logged in

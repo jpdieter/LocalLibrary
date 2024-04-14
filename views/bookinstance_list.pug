@@ -6,7 +6,9 @@ block content
 
     // Title of the page
     h1= title
-
+    if user
+      p.mb-3
+        a(href='/catalog/bookinstance/create', class='btn btn-primary admin-links') Create book-instance 
     // Check if there are book instances
     if bookinstance_list.length
       // Display book instances in a list
