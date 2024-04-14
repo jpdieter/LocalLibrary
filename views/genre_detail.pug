@@ -8,9 +8,9 @@ block content
     h1 Genre: #{genre.name}
 
     div(style='margin-left:20px;margin-top:20px')
-
+    
       // Display books associated with the genre
-      h4 Books
+      h2 Books
       if genre_books.length
         dl
           each book in genre_books
@@ -23,10 +23,10 @@ block content
 
     hr
 
-    // Link to delete the genre
-    p
-      a(href=genre.url+'/delete') Delete Genre
+    if user
+      div.mb-3
+        div.btn-group
+          a(href=genre.url+'/delete', class='btn btn-danger admin-links mr-2') Delete Genre
+          a(href=genre.url+'/update', class='btn btn-primary admin-links mr-2') Update Genre
+          a(href='/catalog/genre/create', class='btn btn-success admin-links') Create Genre
 
-    // Link to update the genre
-    p
-      a(href=genre.url+'/update') Update Genre

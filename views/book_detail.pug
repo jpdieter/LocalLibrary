@@ -54,8 +54,9 @@ block content
 
     hr
 
-    // Delete and update links
-    p
-      a(href=book.url+'/delete') Delete Book
-    p
-      a(href=book.url+'/update') Update Book
+    if user
+      div.mb-3
+        div.btn-group
+          a(href=book.url+'/delete', class='btn btn-danger admin-links mr-2') Delete Book 
+          a(href=book.url+'/update', class='btn btn-primary admin-links mr-2') Update Book 
+          a(href='/catalog/book/create', class='btn btn-success admin-links') Create Book

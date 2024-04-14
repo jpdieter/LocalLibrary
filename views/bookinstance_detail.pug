@@ -30,10 +30,13 @@ block content
     // Horizontal line separator
     hr
 
-    // Link to delete the BookInstance
-    p
-      a(href=bookinstance.url+'/delete') Delete instance
+    if user
+      div.mb-3
+        div.btn-group
+          a(href=bookinstance.url+'/delete', class='btn btn-danger admin-links mr-2') Delete Book Instance
+          a(href=bookinstance.url+'/update', class='btn btn-primary admin-links mr-2') Update Book Instance
+          a(href='/catalog/bookinstance/create', class='btn btn-success admin-links') Create Book Instance
 
-    // Link to update the BookInstance
-    p
-      a(href=bookinstance.url+'/update') Update
+
+
+  
