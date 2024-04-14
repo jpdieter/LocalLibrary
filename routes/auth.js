@@ -138,12 +138,13 @@ router.get('/logout', function(req, res, next) {
 });
 
 // Route for serving the changepassword template
-router.get('/resetpassword', isAuthenticated, function (req, res) {
+router.get('/resetpassword', function (req, res) {
     res.render('resetpassword', { user: req.user });
 });
 
 
-router.post('/resetpassword', isAuthenticated, function (req, res) {
+
+router.post('/resetpassword', function (req, res) {
     // Find the user based on the provided username
     User.findOne({ username: req.body.username })
         .then(user => {
