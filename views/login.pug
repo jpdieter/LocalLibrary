@@ -3,36 +3,38 @@ extends layout
 block content
   //- Create a flexbox container for centering content
   .center-content-index 
-      //- Conditional rendering based on user authentication
-      if user
-        //- Show this content if the user is authenticated
-        h1 Welcome, #{user.username}!
-        //- You can add more content specific to authenticated users here
+    //- Conditional rendering based on user authentication
+    if user
+      //- Show this content if the user is authenticated
+      h1 Welcome, #{user.username}!
+      //- You can add more content specific to authenticated users here
 
-      else
-        //- Show this content if the user is not authenticated
-        div(style="margin-top: 15px;")
-        h1 Admin Access
-        div(style="margin-bottom: 20px;")
-        form(action="/login/password", method="post")
-          section
-            label(for="username") 
-              | Username: 
-              // Added space here
-              input#username(name="username", type="text", autocomplete="username", required, autofocus)
-          section
-            label(for="current-password") 
-              | Password:  
-            //- Added margin to the input field for extra space
-            input#current-password(name="password", type="password", autocomplete="current-password", required, style="margin-left: 10px;")
-          //- Sign-in button 
-          div(style="margin-top: 10px;")
-          button.btn.btn-primary(type="submit", style="margin-top: 10px;") Sign in
-
-        //- Error message wrapped in a div
-        div(style="margin-top: 20px;")
-          if message
-            p.error= message
-
+    else
+      //- Show this content if the user is not authenticated
+      div.container.mt-5
+        .row
+          //- Adjust the column size for a wider card
+          .col-md-8.offset-md-2.col-xl-6.offset-xl-3
+            //- Bootstrap card added for styling
+            .card.shadow.bg-dark.text-white
+              .card-body
+                h1.card-title.text-white Admin Access
+                //- Form for login
+                form(action="/login/password", method="post")
+                  //- Username input field
+                  section.form-group
+                    label(for="username") Username:
+                    input#username.form-control(name="username", type="text", autocomplete="username", required, autofocus)
+                  //- Password input field
+                  section.form-group
+                    label(for="current-password") Password:
+                    input#current-password.form-control(name="password", type="password", autocomplete="current-password", required)
+                  //- Sign-in button 
+                  div.form-group
+                    button.btn.btn-primary.btn-block(type="submit") Sign in
+                //- Error message wrapped in a div
+                div(style="margin-top: 20px;")
+                  if message
+                    p.error= message
   //- Link to your stylesheet
   link(rel="stylesheet", href="/stylesheets/style.css")
