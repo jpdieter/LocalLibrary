@@ -1,50 +1,57 @@
 extends layout
 
 block content
+
   // Centered content
   .center-content-index 
-    h1= title
 
-    // Link to stylesheet
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
 
-    // Form for adding/updating a book
-    form(method='POST')
-      div.form-group
-        label(for='title') Title:
-        input#title.form-control(type='text', placeholder='Name of book', name='title', required, value=(undefined===book ? '' : book.title))
-      div.form-group
-        label(for='author') Author:
-        select#author.form-control(name='author', required)
-          option(value='') --Please select an author--
-          each author in authors
-            if book
-              if author._id.toString()===book.author._id.toString()
-                option(value=author._id, selected) #{author.name}
-              else
-                option(value=author._id) #{author.name}
-            else
-              option(value=author._id) #{author.name}
-      div.form-group
-        label(for='summary') Summary:
-        textarea#summary.form-control(placeholder='Summary', name='summary', required)= undefined===book ? '' : book.summary
-      div.form-group
-        label(for='isbn') ISBN:
-        input#isbn.form-control(type='text', placeholder='ISBN13', name='isbn', value=(undefined===book ? '' : book.isbn), required)
-      div.form-group
-        label Genre:
-        div
-          each genre in genres
-            div(style='display: inline; padding-right:10px;')
-              if genre.checked
-                input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked)
-              else
-                input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id)
-              label(for=genre._id) &nbsp;#{genre.name}
-      button.btn.btn-primary(type='submit') Submit
+        // Title of the page
+        h1= title
 
-    // Display errors if any
-    if errors
-      ul
-        each error in errors
-          li= error.msg
+        // Link to stylesheet
+        link(rel='stylesheet', href='/stylesheets/style.css')
+
+        // Form for adding/updating a book
+        form(method='POST')
+          div.form-group
+            label(for='title') Title:
+            input#title.form-control(type='text', placeholder='Name of book', name='title', required, value=(undefined===book ? '' : book.title))
+          div.form-group
+            label(for='author') Author:
+            select#author.form-control(name='author', required)
+              option(value='') --Please select an author--
+              each author in authors
+                if book
+                  if author._id.toString()===book.author._id.toString()
+                    option(value=author._id, selected) #{author.name}
+                  else
+                    option(value=author._id) #{author.name}
+                else
+                  option(value=author._id) #{author.name}
+          div.form-group
+            label(for='summary') Summary:
+            textarea#summary.form-control(placeholder='Summary', name='summary', required)= undefined===book ? '' : book.summary
+          div.form-group
+            label(for='isbn') ISBN:
+            input#isbn.form-control(type='text', placeholder='ISBN13', name='isbn', value=(undefined===book ? '' : book.isbn), required)
+          div.form-group
+            label Genre:
+            div
+              each genre in genres
+                div(style='display: inline; padding-right:10px;')
+                  if genre.checked
+                    input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id, checked)
+                  else
+                    input.checkbox-input(type='checkbox', name='genre', id=genre._id, value=genre._id)
+                  label(for=genre._id) &nbsp;#{genre.name}
+          button.btn.btn-primary(type='submit') Submit
+
+        // Display errors if any
+        if errors
+          ul
+            each error in errors
+              li= error.msg

@@ -3,25 +3,32 @@ extends layout
 block content
   // Centered content
   .center-content-index 
-    h1= title
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
+        h1= title
 
-    // Link to stylesheet
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    if user
-      p.mb-3
-        a(href='/catalog/book/create', class='btn btn-primary admin-links') Create book 
-    // Check if there are books
-    if book_list.length
-      // Display books in a list
-      ul
-        each book in book_list
-          li
-            // Link to book's detail page
-            a(href=book.url) #{book.title}
-            // Display book's author
-            |  (#{book.author.name})
-    else
-      // Display message if no books found
-      p There are no books.
+        // Link to stylesheet
+        link(rel='stylesheet', href='/stylesheets/style.css')
 
+        // Conditional button for authenticated users
+        if user
+          p.mb-3
+            a(href='/catalog/book/create', class='btn btn-primary admin-links') Create book 
 
+        // Check if there are books
+        if book_list.length
+          // Display books in a list
+          ul.list-unstyled
+            each book in book_list
+              li
+                // Bootstrap card for each book
+                .card.mb-3
+                  .card-body
+                    // Link to book's detail page
+                    a.card-title(href=book.url) #{book.title}
+                    // Display book's author
+                    p.card-text-white (#{book.author.name})
+        else
+          // Display message if no books found
+          p There are no books.

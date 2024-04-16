@@ -7,28 +7,33 @@ block content
   
   // Centered content
   .center-content-index 
-    h1 #{title}: #{author.name}
-    p= author.lifespan
 
-    // Check if author has associated books
-    if author_books.length
-      p #[strong Delete the following books before attempting to delete this author.]
-      div(style='margin-left:20px;margin-top:20px')
-        h4 Books
-        dl
-          // Display each book
-          each book in author_books
-            dt
-              a(href=book.url) #{book.title}
-            dd #{book.summary}
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
 
-    else
-      // Ask for confirmation before deletion
-      p Do you really want to delete this Author?
+        h1 #{title}: #{author.name}
+        p= author.lifespan
 
-      // Form for deletion
-      form(method='POST')
-        div.form-group
-          input#authorid.form-control(type='hidden', name='authorid', value=author._id )
+        // Check if author has associated books
+        if author_books.length
+          p #[strong Delete the following books before attempting to delete this author.]
+          div(style='margin-left:20px;margin-top:20px')
+            h4 Books
+            dl
+              // Display each book
+              each book in author_books
+                dt
+                  a(href=book.url) #{book.title}
+                dd #{book.summary}
 
-        button.btn.btn-primary(type='submit') Delete
+        else
+          // Ask for confirmation before deletion
+          p Do you really want to delete this Author?
+
+          // Form for deletion
+          form(method='POST')
+            div.form-group
+              input#authorid.form-control(type='hidden', name='authorid', value=author._id )
+
+            button.btn.btn-primary(type='submit') Delete

@@ -1,42 +1,44 @@
 extends layout
 
 block content
+
   // Centered content
   .center-content-index 
 
-    // Header displaying the BookInstance ID
-    h1 ID: #{bookinstance._id}
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
 
-    // Link to the BookInstance's book's detail page
-    p #[strong Title: ]
-      a(href=bookinstance.book.url) #{bookinstance.book.title}
+        // Header displaying the BookInstance ID
+        h1 ID: #{bookinstance._id}
 
-    // Imprint of the BookInstance
-    p #[strong Imprint:] #{bookinstance.imprint}
+        // Link to the BookInstance's book's detail page
+        p #[strong Title: ]
+          a(href=bookinstance.book.url) #{bookinstance.book.title}
 
-    // Status of the BookInstance
-    p #[strong Status: ]
-      if bookinstance.status=='Available'
-        span.text-success #{bookinstance.status}
-      else if bookinstance.status=='Maintenance'
-        span.text-danger #{bookinstance.status}
-      else
-        span.text-warning #{bookinstance.status}
+        // Imprint of the BookInstance
+        p #[strong Imprint:] #{bookinstance.imprint}
 
-    // Due back date if not available
-    if bookinstance.status!='Available'
-      p #[strong Due back:] #{bookinstance.due_back_formatted}
+        // Status of the BookInstance
+        p #[strong Status: ]
+          if bookinstance.status=='Available'
+            span.text-success #{bookinstance.status}
+          else if bookinstance.status=='Maintenance'
+            span.text-danger #{bookinstance.status}
+          else
+            span.text-warning #{bookinstance.status}
 
-    // Horizontal line separator
-    hr
+        // Due back date if not available
+        if bookinstance.status!='Available'
+          p #[strong Due back:] #{bookinstance.due_back_formatted}
 
-    if user
-      div.mb-3
-        div.btn-group
-          a(href=bookinstance.url+'/delete', class='btn btn-danger admin-links mr-2') Delete Book Instance
-          a(href=bookinstance.url+'/update', class='btn btn-primary admin-links mr-2') Update Book Instance
-          a(href='/catalog/bookinstance/create', class='btn btn-success admin-links') Create Book Instance
+        // Horizontal line separator
+        hr
 
-
-
-  
+        // Conditional buttons for user actions
+        if user
+          div.mb-3
+            div.btn-group
+              a(href=bookinstance.url+'/delete', class='btn btn-danger admin-links mr-2') Delete Book Instance
+              a(href=bookinstance.url+'/update', class='btn btn-primary admin-links mr-2') Update Book Instance
+              a(href='/catalog/bookinstance/create', class='btn btn-success admin-links') Create Book Instance

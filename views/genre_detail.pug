@@ -1,32 +1,39 @@
 extends layout
 
 block content
+
   // Centered content
   .center-content-index 
 
-    // Title of the page
-    h1 Genre: #{genre.name}
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
 
-    div(style='margin-left:20px;margin-top:20px')
-    
-      // Display books associated with the genre
-      h2 Books
-      if genre_books.length
-        dl
-          each book in genre_books
-            dt
-              a(href=book.url) #{book.title}
-            dd #{book.summary}
-      else
-        // Display message if no books found for the genre
-        p This genre has no books.
+        // Title of the page
+        h1 Genre: #{genre.name}
 
-    hr
+        // Margin for books list
+        div(style='margin-left:20px;margin-top:20px')
+        
+          // Title for books
+          h2 Books
+          if genre_books.length
+            dl
+              // Display each book associated with the genre
+              each book in genre_books
+                dt
+                  a(href=book.url) #{book.title}
+                dd #{book.summary}
+          else
+            // Display message if no books found for the genre
+            p This genre has no books.
 
-    if user
-      div.mb-3
-        div.btn-group
-          a(href=genre.url+'/delete', class='btn btn-danger admin-links mr-2') Delete Genre
-          a(href=genre.url+'/update', class='btn btn-primary admin-links mr-2') Update Genre
-          a(href='/catalog/genre/create', class='btn btn-success admin-links') Create Genre
+        hr
 
+        // Conditional buttons for user actions
+        if user
+          div.mb-3
+            div.btn-group
+              a(href=genre.url+'/delete', class='btn btn-danger admin-links mr-2') Delete Genre
+              a(href=genre.url+'/update', class='btn btn-primary admin-links mr-2') Update Genre
+              a(href='/catalog/genre/create', class='btn btn-success admin-links') Create Genre

@@ -2,36 +2,41 @@ extends layout
 
 block content
 
-  // Link to CSS stylesheet
-  link(rel='stylesheet', href='/stylesheets/style.css')
-
   // Centered content
   .center-content-index 
-    h1 Author: #{author.name}
-    
-    p #{author.lifespan}
 
-    // Margin for books list
-    div(style='margin-left:20px;margin-top:20px')
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
+        // Author name
+        h1 Author: #{author.name}
+        
+        // Author's lifespan
+        p #{author.lifespan}
 
-      h4 Books
+        // Margin for books list
+        div(style='margin-left:20px;margin-top:20px')
 
-      // Check if author has associated books
-      if author_books.length
-        dl
-          // Display each book
-          each book in author_books
-            dt
-              a(href=book.url) #{book.title}
-            dd #{book.summary}
-      else
-        p This author has no books
+          // Title for books
+          h4 Books
 
-    hr
+          // Check if author has associated books
+          if author_books.length
+            dl
+              // Display each book
+              each book in author_books
+                dt
+                  a(href=book.url) #{book.title}
+                dd #{book.summary}
+          else
+            p This author has no books
 
-    if user
-      div.mb-3
-        div.btn-group
-          a(href=author.url+'/delete', class='btn btn-danger admin-links mr-2') Delete Author 
-          a(href=author.url+'/update', class='btn btn-primary admin-links mr-2') Update Author 
-          a(href='/catalog/author/create', class='btn btn-success admin-links') Create Author
+        hr
+
+        // Conditional buttons for user actions
+        if user
+          div.mb-3
+            div.btn-group
+              a(href=author.url+'/delete', class='btn btn-danger admin-links mr-2') Delete Author 
+              a(href=author.url+'/update', class='btn btn-primary admin-links mr-2') Update Author 
+              a(href='/catalog/author/create', class='btn btn-success admin-links') Create Author

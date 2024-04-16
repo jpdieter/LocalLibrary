@@ -4,24 +4,32 @@ block content
 
   // Centered content
   .center-content-index 
-    h1= title
-    if user
-      p.mb-3
-        a(href='/catalog/author/create', class='btn btn-primary admin-links') Create author
-    // Link to stylesheet
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
+        h1= title
 
-    // Check if there are authors
-    if author_list.length
-      // Display authors in a list without bullets
-      ul.list-unstyled
-        each author in author_list
-          li
-            // Link to author's detail page
-            a(href=author.url) #{author.name}
-            // Display author's lifespan
-            |  (#{author.date_of_birth_yyyy_mm_dd} - #{author.date_of_death_yyyy_mm_dd})
-    else
-      // Display message if no authors found
-      p There are no authors.
-      // Only display delete, update, and create links if user is logged in
+        // Link to stylesheet
+        link(rel='stylesheet', href='/stylesheets/style.css')
+
+        // Conditional button for authenticated users
+        if user
+          p.mb-3
+            a(href='/catalog/author/create', class='btn btn-primary admin-links') Create author 
+
+        // Check if there are authors
+        if author_list.length
+          // Display authors in a list without bullets
+          ul.list-unstyled
+            each author in author_list
+              li
+                // Bootstrap card for each author
+                .card.mb-3
+                  .card-body
+                    // Link to author's detail page
+                    a.card-title(href=author.url) #{author.name}
+                    // Display author's lifespan
+                    p.card-text (#{author.date_of_birth_yyyy_mm_dd} - #{author.date_of_death_yyyy_mm_dd})
+        else
+          // Display message if no authors found
+          p There are no authors.

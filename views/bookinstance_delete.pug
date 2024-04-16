@@ -3,38 +3,44 @@ extends layout
 block content
   // Centered content
   .center-content-index 
-    h1= title
 
-    // Link to stylesheet
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
 
-    // Message prompting for confirmation
-    p #[strong Do you really want to delete this BookInstance?]
+        h1= title
 
-    // Details of the BookInstance
-    div(style="margin-left:20px")
+        // Link to stylesheet
+        link(rel='stylesheet', href='/stylesheets/style.css')
 
-      // BookInstance ID
-      p #[strong ID]: #{bookinstance._id}
+        // Message prompting for confirmation
+        p #[strong Do you really want to delete this BookInstance?]
 
-      // Link to the BookInstance's book's detail page
-      p #[strong Title: ]
-        a(href=bookinstance.book.url) #{bookinstance.book.title}
+        // Details of the BookInstance
+        div(style="margin-left:20px")
 
-      // Imprint of the BookInstance
-      p #[strong Imprint:] #{bookinstance.imprint}
+          // BookInstance ID
+          p #[strong ID]: #{bookinstance._id}
 
-      // Status of the BookInstance
-      p #[strong Status: ]
-        if bookinstance.status=='Available'
-          span.text-success #{bookinstance.status}
-        else if bookinstance.status=='Maintenance'
-          span.text-danger #{bookinstance.status}
-        else
-          span.text-warning #{bookinstance.status}
+          // Link to the BookInstance's book's detail page
+          p #[strong Title: ]
+            a(href=bookinstance.book.url) #{bookinstance.book.title}
 
-      form(method='POST')
-         div.form-group
-          input#id.form-control(type='hidden',name='id', value=bookinstance._id )
+          // Imprint of the BookInstance
+          p #[strong Imprint:] #{bookinstance.imprint}
 
-         button.btn.btn-danger(type='submit') Delete Book Instance
+          // Status of the BookInstance
+          p #[strong Status: ]
+            if bookinstance.status=='Available'
+              span.text-success #{bookinstance.status}
+            else if bookinstance.status=='Maintenance'
+              span.text-danger #{bookinstance.status}
+            else
+              span.text-warning #{bookinstance.status}
+
+          // Form for deletion
+          form(method='POST')
+             div.form-group
+              input#id.form-control(type='hidden',name='id', value=bookinstance._id )
+
+             button.btn.btn-danger(type='submit') Delete Book Instance

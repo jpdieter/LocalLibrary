@@ -3,58 +3,62 @@ extends layout
 block content
   // Centered content
   .center-content-index 
-    h1 #{title}: #{book.name}
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
 
-    // Link to stylesheet
-    link(rel='stylesheet', href='/stylesheets/style.css')
+        h1 #{title}: #{book.name}
 
-    // Author
-    p 
-      strong Author: 
-      a(href=book.author.url) #{book.author.name}
+        // Link to stylesheet
+        link(rel='stylesheet', href='/stylesheets/style.css')
 
-    // Summary
-    p #[strong Summary:] #{book.summary}
+        // Author
+        p 
+          strong Author: 
+          a(href=book.author.url) #{book.author.name}
 
-    // ISBN
-    p #[strong ISBN:] #{book.isbn}
+        // Summary
+        p #[strong Summary:] #{book.summary}
 
-    // Genre
-    p 
-      strong Genre: 
-      each val, index in book.genre
-        a(href=val.url) #{val.name}
-        if index < book.genre.length - 1
-          |,&nbsp;
+        // ISBN
+        p #[strong ISBN:] #{book.isbn}
 
-    hr
+        // Genre
+        p 
+          strong Genre: 
+          each val, index in book.genre
+            a(href=val.url) #{val.name}
+            if index < book.genre.length - 1
+              |,&nbsp;
 
-    // Check if there are book instances
-    if book_instances.length
-      // Display message if there are book instances
-      p #[strong Delete the following copies before attempting to delete this Book.]
+        hr
 
-      // Display book instances
-      div(style='margin-left:20px;margin-top:20px')
-        h4 Copies
-        each book_copy in book_instances
-          hr
-          // Display book copy status
-          if book_copy.status=='Available'
-            p.text-success #{book_copy.status}
-          else if book_copy.status=='Maintenance'
-            p.text-danger #{book_copy.status}
-          else
-            p.text-warning #{book_copy.status}
-          // Display book copy details
-          p #[strong Imprint:] #{book_copy.imprint}
-          // Display due back date if not available
-          if book_copy.status!='Available'
-    else
-      p Do you really want to delete this Book?
+        // Check if there are book instances
+        if book_instances.length
+          // Display message if there are book instances
+          p #[strong Delete the following copies before attempting to delete this Book.]
 
-    form(method='POST')
-      div.form-group
-        input#id.form-control(type='hidden',name='id', value=book._id )
+          // Display book instances
+          div(style='margin-left:20px;margin-top:20px')
+            h4 Copies
+            each book_copy in book_instances
+              hr
+              // Display book copy status
+              if book_copy.status=='Available'
+                p.text-success #{book_copy.status}
+              else if book_copy.status=='Maintenance'
+                p.text-danger #{book_copy.status}
+              else
+                p.text-warning #{book_copy.status}
+              // Display book copy details
+              p #[strong Imprint:] #{book_copy.imprint}
+              // Display due back date if not available
+              if book_copy.status!='Available'
+        else
+          p Do you really want to delete this Book?
 
-      button.btn.btn-primary(type='submit') Delete
+        form(method='POST')
+          div.form-group
+            input#id.form-control(type='hidden',name='id', value=book._id )
+
+          button.btn.btn-primary(type='submit') Delete

@@ -1,24 +1,34 @@
 extends layout
 
 block content
+
   // Centered content
   .center-content-index 
-    // Title of the page
-    h1= title
-    if user
-      p.mb-3
-        a(href='/catalog/genre/create', class='btn btn-primary admin-links') Create genre 
-    // Check if there are genres
-    if list_genres.length
-      // Display genres in a list
-      ul.list-unstyled
-        each val in list_genres
-          li
-            // Link to the genre's detail page
-            a(href=val.url) #{val.name}
-    else
-      // Display message if no genres found
-      p There are no genres.
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
+        // Title of the page
+        h1= title
 
-  // Include the stylesheet
-  link(rel='stylesheet', href='/stylesheets/style.css')
+        // Link to stylesheet
+        link(rel='stylesheet', href='/stylesheets/style.css')
+
+        // Conditional button for authenticated users
+        if user
+          p.mb-3
+            a(href='/catalog/genre/create', class='btn btn-primary admin-links') Create genre 
+
+        // Check if there are genres
+        if list_genres.length
+          // Display genres in a list without bullets
+          ul.list-unstyled
+            each val in list_genres
+              li
+                // Bootstrap card for each genre
+                .card.mb-3
+                  .card-body
+                    // Link to the genre's detail page
+                    a.card-title(href=val.url) #{val.name}
+        else
+          // Display message if no genres found
+          p There are no genres.

@@ -1,21 +1,27 @@
 extends layout
 
 block content
-
+  // Link to the stylesheet
   link(rel='stylesheet', href='/stylesheets/style.css')
 
+  // Centered content
   .center-content-index 
-    h1= title
-    - let greetingMessage = user ? `Welcome to LocalLibrary, ${user.username}!` : "Welcome to LocalLibrary, a comprehensive online platform for book enthusiasts."
-    p!= greetingMessage
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
 
-    h3 Library Statistics
+        // Title of the page
+        h1= title
+        - let greetingMessage = user ? `Welcome to LocalLibrary, ${user.username}!` : "Welcome to LocalLibrary, a comprehensive online platform for book enthusiasts."
+        p!= greetingMessage
 
-    p Below are some statistics about our library collection:
+        h3 Library Statistics
 
-    ul.list-unstyled
-      li #[strong Total Books:] !{book_count}
-      li #[strong Total Copies:] !{book_instance_count}
-      li #[strong Available Copies:] !{book_instance_available_count}
-      li #[strong Total Authors:] !{author_count}
-      li #[strong Total Genres:] !{genre_count}
+        p Below are some statistics about our library collection:
+
+        ul.list-unstyled
+          li #[strong Total Books:] !{book_count}
+          li #[strong Total Copies:] !{book_instance_count}
+          li #[strong Available Copies:] !{book_instance_available_count}
+          li #[strong Total Authors:] !{author_count}
+          li #[strong Total Genres:] !{genre_count}

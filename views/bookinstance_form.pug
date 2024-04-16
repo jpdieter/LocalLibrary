@@ -1,43 +1,48 @@
 extends layout
 
 block content
+
   // Centered content
   .center-content-index 
 
-    // Title of the form
-    h1=title
+    // Bootstrap card with black background and white text
+    .card.shadow.bg-dark.text-white
+      .card-body
 
-    // Form for creating/updating a BookInstance
-    form(method='POST')
+        // Title of the form
+        h1=title
 
-      // Select input for choosing a book
-      div.form-group
-        label(for='book') Book:
-        select#book.form-control(name='book' required)
-          option(value='') --Please select a book--
-          each book in book_list
-            if selected_book==book._id.toString()
-              option(value=book._id, selected) #{book.title}
-            else
-              option(value=book._id) #{book.title}
+        // Form for creating/updating a BookInstance
+        form(method='POST')
 
-      // Input field for the imprint
-      div.form-group
-        label(for='imprint') Imprint:
-        input#imprint.form-control(type='text' placeholder='Publisher and date information' name='imprint' required value=(undefined===bookinstance ? '' : bookinstance.imprint) )
+          // Select input for choosing a book
+          div.form-group
+            label(for='book') Book:
+            select#book.form-control(name='book' required)
+              option(value='') --Please select a book--
+              each book in book_list
+                if selected_book==book._id.toString()
+                  option(value=book._id, selected) #{book.title}
+                else
+                  option(value=book._id) #{book.title}
 
-      // Input field for the due back date
-      div.form-group
-        label(for='due_back') Date when book available:
-        input#due_back.form-control(type='date' name='due_back' value=(undefined===bookinstance ? '' : bookinstance.due_back_yyyy_mm_dd))
+          // Input field for the imprint
+          div.form-group
+            label(for='imprint') Imprint:
+            input#imprint.form-control(type='text' placeholder='Publisher and date information' name='imprint' required value=(undefined===bookinstance ? '' : bookinstance.imprint) )
 
-      // Select input for choosing the status
-      div.form-group
-        label(for='status') Status:
-        select#status.form-control(name='status' required)
-          option(value='') --Please select a status--
-          option(value='Available' selected) Available
-          option(value='Loaned') Loaned
-          option(value='Maintenance') Maintenance
+          // Input field for the due back date
+          div.form-group
+            label(for='due_back') Date when book available:
+            input#due_back.form-control(type='date' name='due_back' value=(undefined===bookinstance ? '' : bookinstance.due_back_yyyy_mm_dd))
 
-      button.btn.btn-primary(type='submit', style='margin-bottom: 20px;') Submit
+          // Select input for choosing the status
+          div.form-group
+            label(for='status') Status:
+            select#status.form-control(name='status' required)
+              option(value='') --Please select a status--
+              option(value='Available' selected) Available
+              option(value='Loaned') Loaned
+              option(value='Maintenance') Maintenance
+
+          button.btn.btn-primary(type='submit', style='margin-bottom: 20px;') Submit
