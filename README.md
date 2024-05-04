@@ -13,6 +13,7 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 - [Technologies Used](#technologies-used)
 - [Security](#security)
 - [Install Project](#install-project)
+- [Contributing](#contributing)
 - [Acknowledgements](#acknowledgements)
 
 ## Features
