@@ -47,17 +47,17 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
    ```
 2. Navigate to the LocalLibrary directory.
 
-4. Install dependencies:
+3. Install dependencies:
 
    ```bash
    npm install
 
-5. Create env file:   
+4. Create env file:   
 
      ```bash
    touch .env
 
-6. Within the .env file, configure the following variables for your database and Express session secret:
+5. Within the .env file, configure the following variables for your database and Express session secret:
    
    DATABASE_URL= MongoDB Atlas URL
    
@@ -67,11 +67,17 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 
    Save the file.
  
-5. Start the server:
+6. Start the server:
 
    ```bash
    npm run devstart
    ```
+   
+7. Open the app in your web browser:
+
+   ```
+   http://localhost:3000
+   ```   
 
 ## Acknowledgements
 
