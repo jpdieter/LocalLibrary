@@ -39,6 +39,40 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 - Handle errors securely to avoid sensitive information exposure.
 - Keep dependencies updated to address security vulnerabilities.
 
+## Install Project
+
+1. Clone the repo
+   ```bash
+   git clone https://github.com/jpdieter/LocalLibrary.git
+   ```
+2. Navigate to the LocalLibrary directory.
+
+4. Install dependencies:
+
+   ```bash
+   npm install
+
+5. Create env file:   
+
+     ```bash
+   touch .env
+
+6. Within the .env file, configure the following variables for your database and Express session secret:
+   
+   DATABASE_URL= MongoDB Atlas URL
+   
+   NODE_ENV=production
+   
+   SECRET_KEY=
+
+   Save the file.
+ 
+5. Start the server:
+
+   ```bash
+   npm run devstart
+   ```
+
 ## Acknowledgements
 
 - This project was inspired by the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web) and their tutorials on building web applications.
