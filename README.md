@@ -78,7 +78,10 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 
    ```
    http://localhost:3000
-   ```   
+   ```
+
+## Contributing
+Contributions are welcome! If you'd like to contribute to the project, please fork the repository, make your changes, and submit a pull request.   
 
 ## Acknowledgements
 
