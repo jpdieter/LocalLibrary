@@ -24,7 +24,7 @@ const app = express();
 const RateLimit = require("express-rate-limit");
 const limiter = RateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
-  max: 25,
+  max: 30,
   validate: {xForwardedForHeader: false},
 });
 // Apply rate limiter to all requests
