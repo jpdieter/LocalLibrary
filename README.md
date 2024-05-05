@@ -2,7 +2,7 @@
 
 ![Library Image](public/images/LocalLibraryApp.png)
 
-<!-- Live app: https://locallibrary-5sbd.onrender.com/ -->
+Live app: https://locallibrary-5sbd.onrender.com/
 
 ## Introduction
 
