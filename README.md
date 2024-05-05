@@ -12,6 +12,8 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Security](#security)
+- [Install Project](#install-project)
+- [Contributing](#contributing)
 - [Acknowledgements](#acknowledgements)
 
 ## Features
@@ -38,6 +40,49 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 - Use Content Security Policy (CSP) to mitigate XSS attacks.
 - Handle errors securely to avoid sensitive information exposure.
 - Keep dependencies updated to address security vulnerabilities.
+
+## Install Project
+
+1. Clone the repo
+   ```bash
+   git clone https://github.com/jpdieter/LocalLibrary.git
+   ```
+2. Navigate to the LocalLibrary directory.
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+
+4. Create env file:   
+
+     ```bash
+   touch .env
+
+5. Within the .env file, configure the following variables for your database and Express session secret:
+   
+   DATABASE_URL= MongoDB Atlas URL
+   
+   NODE_ENV=production
+   
+   SECRET_KEY=
+
+   Save the file.
+ 
+6. Start the server:
+
+   ```bash
+   npm run devstart
+   ```
+   
+7. Open the app in your web browser:
+
+   ```
+   http://localhost:3000
+   ```
+
+## Contributing
+Contributions are welcome! If you'd like to contribute to the project, please fork the repository, make your changes, and submit a pull request.   
 
 ## Acknowledgements
 
