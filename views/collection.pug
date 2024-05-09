@@ -20,8 +20,23 @@ block content
         p Below are some statistics about our library collection:
 
         ul.list-unstyled
-          li #[strong Total Books:] !{book_count}
-          li #[strong Total Copies:] !{book_instance_count}
-          li #[strong Available Copies:] !{book_instance_available_count}
-          li #[strong Total Authors:] !{author_count}
-          li #[strong Total Genres:] !{genre_count}
+          li
+            a(href="/catalog/books")
+              strong Total Books:
+            |  !{ book_count }
+          li
+            a(href="/catalog/bookinstances")
+              strong Total Copies:
+            |  !{ book_instance_count }
+          li
+            a(href="/catalog/bookinstances")
+              strong Available Copies:
+            |  !{ book_instance_available_count }
+          li
+            a(href="/catalog/authors")
+              strong Total Authors:
+            |  !{ author_count }
+          li
+            a(href="/catalog/genres")
+              strong Total Genres:
+            |  !{ genre_count }
