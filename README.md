@@ -21,7 +21,7 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 - **Book Catalog**: Browse available books.
 - **Search**: Find books by title, author, genre, or ISBN.
 - **Availability**: Check if a book is currently available for borrowing.
-- **Admin Features**: Library admins can create, update, and delete books, authors, genres, and instances.
+- **Admin Features**: Library admins can manage books, authors, genres, and instances. (Admin features only appear after sign-in)
 - **Password Reset**: Library admins can reset their passwords securely.
 - **Passport Authentication**: Secure login system with Passport.js
 - **Responsive Design**: Ensures compatibility across devices.
