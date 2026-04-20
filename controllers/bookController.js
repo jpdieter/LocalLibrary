@@ -25,7 +25,7 @@ exports.index = asyncHandler(async (req, res, next) => {
   ]);
 
   res.render("collection", {
-    title: "Local Library Home",
+    title: "LocalLibrary Home",
     book_count: numBooks,
     book_instance_count: numBookInstances,
     book_instance_available_count: numAvailableBookInstances,
