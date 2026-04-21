@@ -41,6 +41,34 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 - Handle errors securely to avoid sensitive information exposure.
 - Keep dependencies updated to address security vulnerabilities.
 
+## QA Testing Overview
+
+This project includes both manual and API-level QA testing to validate core functionality and basic security of the LocalLibrary application.
+
+### Manual Testing
+Located in:
+- `/qa/test-cases.md`
+
+Covers:
+- Navigation flows (Collection → Books)
+- Search functionality (exact, partial, empty input)
+- UI behavior validation
+
+### API Testing (Postman)
+Located in:
+- `/postman/LocalLibrary.postman_collection.json`
+
+Covers:
+- Book catalog endpoint validation
+- Search functionality testing
+- Response validation (status codes, headers, response time)
+- Basic security header verification
+
+### How to Run API Tests
+1. Import the Postman collection
+2. Run the collection runner
+3. Verify all tests pass (green status)
+
 ## Install Project
 
 1. Clone the repo
@@ -88,5 +116,3 @@ Contributions are welcome! If you'd like to contribute to the project, please fo
 
 - This project was inspired by the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web) and their tutorials on building web applications.
 - We'd like to thank the open-source community for their contributions to the technologies used in this project.
-
-Happy Reading! 📚📖
