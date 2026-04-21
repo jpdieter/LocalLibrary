@@ -89,3 +89,29 @@ Actual:
 - No results returned, page remains stable
 
 Status: Pass
+
+---
+
+## TC-PM-001: Get Book Catalog (Public API)
+
+**Endpoint:**
+GET /catalog/books
+
+**Tool Used:**
+Postman
+
+**Test Type:**
+API / Functional
+
+**Assertions Verified:**
+- Status code = 200
+- Response time < 2s
+- Content-Type = text/html
+- Response body is not empty
+- Security headers (CSP) present
+
+**Result:**
+PASS
+
+**Notes:**
+Endpoint returns HTML-rendered book catalog with security headers and rate limiting enabled.
