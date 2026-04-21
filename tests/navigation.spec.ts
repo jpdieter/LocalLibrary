@@ -1,18 +1,17 @@
 import { test, expect } from '@playwright/test';
 
 test('User can navigate to book catalog from landing page', async ({ page }) => {
-  // Go to your app
   await page.goto('https://locallibrary-5sbd.onrender.com/');
 
   // Click "View Collection"
-  await page.getByText('View Collection').click();
+  await page.getByRole('link', { name: 'View Collection' }).click()
 
   // Click "Total Books"
-  await page.getByText('Total Books').click();
+  await page.getByRole('link', { name: 'Total Books:' }).click();
 
-  // Assert URL is correct
+  // Assert URL
   await expect(page).toHaveURL(/.*catalog\/books/);
 
-  // Assert page contains expected content
-  await expect(page.getByText('Book List')).toBeVisible();
+  // Assert content
+  await page.getByRole('heading', { name: 'Book List' }).click();
 });
