@@ -43,7 +43,7 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 
 ## QA Testing Overview
 
-This project includes both manual and API-level QA testing to validate core functionality and basic security of the LocalLibrary application.
+This project includes manual testing, API testing, and UI automation testing to validate core functionality of the LocalLibrary application.
 
 ### Manual Testing
 Located in:
@@ -68,6 +68,23 @@ Covers:
 1. Import the Postman collection
 2. Run the collection runner
 3. Verify all tests pass (green status)
+
+### UI Automation Testing (Playwright)
+Located in:
+- `/tests/navigation.spec.ts`
+- `/tests/search.spec.ts`
+
+Covers:
+- Navigation flow validation (Landing → Collection → Books catalog)
+- Search functionality behavior across multiple input types:
+   - Exact book title search (e.g. "1984")
+   - Partial title search (e.g. "19" returning "1984")
+   - Author search behavior (e.g. "Orwell" and "George Orwell")
+
+Notes:
+- Tests are written using Playwright
+- Role-based selectors (getByRole) are used where possible for stability and accessibility alignment
+- Search tests validate both functional correctness and real user behavior patterns (exact vs partial matching behavior)
 
 ## Install Project
 
