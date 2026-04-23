@@ -86,6 +86,25 @@ Notes:
 - Role-based selectors (getByRole) are used where possible for stability and accessibility alignment
 - Search tests validate both functional correctness and real user behavior patterns (exact vs partial matching behavior)
 
+## QA Strategy
+
+This project focuses on the main user workflows in the application, with an emphasis on catching regressions in search and navigation rather than trying to cover every possible edge case.
+
+### Critical User Flows
+- Book search (exact titles, partial matches, and author-based queries)
+- Navigation between the catalog and search results
+- Correct display and linking of search results
+
+### Approach
+- Manual exploratory testing to understand expected behavior and identify edge cases
+- API testing (Postman) to confirm backend responses and status codes are correct
+- UI automation (Playwright) to protect key flows from regressions
+
+### Focus
+- Preventing regressions in search behavior as the application changes
+- Making sure the UI behaves the way a user would expect during search and navigation
+- Verifying that core end-to-end user flows continue to work correctly
+
 ## Install Project
 
 1. Clone the repo
