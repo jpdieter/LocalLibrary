@@ -13,5 +13,5 @@ test('User can navigate to book catalog from landing page', async ({ page }) => 
   await expect(page).toHaveURL(/.*catalog\/books/);
 
   // Assert content
-  await page.getByRole('heading', { name: 'Book List' }).click();
+  await expect(page.getByRole('heading', { name: 'Book List' })).toBeVisible();
 });
