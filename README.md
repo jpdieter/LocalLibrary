@@ -80,6 +80,7 @@ Covers:
    - Exact book title search (e.g. "1984")
    - Partial title search (e.g. "19" returning "1984")
    - Author search behavior (e.g. "Orwell" and "George Orwell")
+   - Empty search query
 
 Notes:
 - Tests are written using Playwright
