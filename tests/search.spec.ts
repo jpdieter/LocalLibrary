@@ -65,3 +65,14 @@ test('User can search by author name', async ({ page }) => {
   // Partial matches (Orwell / George) work as expected.
   await expect(page.locator('text=George Orwell')).toBeVisible();
 });
+
+test('User cannot search with empty query', async ({ page }) => {
+
+  await page.goto('https://locallibrary-5sbd.onrender.com/collection');
+
+  await page.getByRole('button', { name: 'Search' }).click();
+
+  // Expect no results
+  const results = page.locator('ul > li > a');
+  await expect(results).toHaveCount(0);
+});
