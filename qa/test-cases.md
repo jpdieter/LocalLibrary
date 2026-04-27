@@ -4,8 +4,6 @@ Application: https://locallibrary-5sbd.onrender.com/
 Testing Type: Manual Functional Testing  
 Scope: Navigation, Search
 
----
-
 ## TC-002 – Book Catalog Navigation
 
 Priority: High
@@ -32,7 +30,6 @@ Actual:
 
 Status: Pass
 
----
 
 ## TC-004 – Book Search Functionality
 
@@ -41,8 +38,6 @@ Priority: High
 Preconditions:
 - App is accessible
 - User is on Collection page
-
----
 
 ### 1. Exact Title Search
 
@@ -58,7 +53,6 @@ Actual:
 
 Status: Pass
 
----
 
 ### 2. Partial Title Search
 
@@ -74,7 +68,6 @@ Actual:
 
 Status: Pass
 
----
 
 ### 3. Empty Search
 
@@ -86,11 +79,10 @@ Expected:
 - No results or empty state displayed
 
 Actual:
-- No results returned, page remains stable
+- Returns all books/authors/genres
 
-Status: Pass
+Status: FAIL (Unexpected behavior)
 
----
 
 ## TC-PM-001: Get Book Catalog (Public API)
 
