@@ -84,6 +84,57 @@ Actual:
 Status: FAIL (Unexpected behavior)
 
 
+## TC-004 – Book Search Functionality
+
+Priority: High
+
+Preconditions:
+- App is accessible
+- User is on Collection page
+
+### 1. Exact Title Search
+
+Steps:
+1. Enter full book title in search field
+2. Submit search
+
+Expected:
+- Matching book is returned
+
+Actual:
+- Matching result displayed
+
+Status: Pass
+
+
+## TC-005 – Book Details Page
+
+Preconditions:
+- App is accessible
+- User is on Collection page
+
+Steps:
+1. Click on Total Books
+2. Click on Book Title
+3. Verify book details page loads
+4. Go back to Collection page
+5. Use top navigation → Collection → Books
+6. Click "Total Books" again
+
+
+Expected:
+- Both paths open correct book details page
+- URL contains `/catalog/books/<id>`
+- Title visible
+- Author visible
+
+Actual:
+- Both paths successfully opened the selected book details page
+- Title and author information displayed correctly
+
+Status: Pass
+
+
 ## TC-PM-001: Get Book Catalog (Public API)
 
 **Endpoint:**
@@ -107,3 +158,21 @@ PASS
 
 **Notes:**
 Endpoint returns HTML-rendered book catalog with security headers and rate limiting enabled.
+
+## TC-PM-002 - Get Book Details Page
+
+Endpoint:
+GET /catalog/book/:id
+
+Tool:
+Postman
+
+Assertions Verified:
+- Status code = 200
+- Response body contains expected book title
+- Response contains author information
+- Content-Type = text/html
+- Response time acceptable
+
+Result:
+PASS
