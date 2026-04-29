@@ -30,3 +30,17 @@ test('User can navigate to book details page', async ({ page }) => {
   // Assert content
   await expect(page.getByRole('heading', { name: /1984/ })).toBeVisible();
 });
+
+test('Author displays correctly on book details page', async ({ page }) => { 
+
+  await page.goto('https://locallibrary-5sbd.onrender.com/catalog/books');
+
+  await page.getByRole('link', { name: '1984' }).click();
+
+  // Assert title
+  await expect(page.getByRole('heading', { name: 'Title: 1984' })).toBeVisible();
+
+  // Assert author
+  await expect(page.getByRole('link', { name: 'Orwell, George' })).toBeVisible();
+
+});
