@@ -50,7 +50,8 @@ Located in:
 - `/qa/test-cases.md`
 
 Covers:
-- Navigation flows (Collection → Books)
+- Navigation flows (Collection → Books → Book Details)
+- Book details page validation (title, author, metadata visibility)
 - Search functionality (exact, partial, empty input)
 - UI behavior validation
 
@@ -60,6 +61,7 @@ Located in:
 
 Covers:
 - Book catalog endpoint validation
+- Book details endpoint validation
 - Search functionality testing
 - Response validation (status codes, headers, response time)
 - Basic security header verification
@@ -76,6 +78,9 @@ Located in:
 
 Covers:
 - Navigation flow validation (Landing → Collection → Books catalog)
+- Book details page navigation and routing validation
+- Dynamic URL validation for individual book pages
+- Book metadata validation (title visibility)
 - Search functionality behavior across multiple input types:
    - Exact book title search (e.g. "1984")
    - Partial title search (e.g. "19" returning "1984")
@@ -94,7 +99,9 @@ This project focuses on the main user workflows in the application, with an emph
 ### Critical User Flows
 - Book search (exact titles, partial matches, and author-based queries)
 - Navigation between the catalog and search results
+- Navigation to individual book detail pages
 - Correct display and linking of search results
+- Correct rendering of book metadata and detail views
 
 ### Approach
 - Manual exploratory testing to understand expected behavior and identify edge cases
@@ -103,7 +110,7 @@ This project focuses on the main user workflows in the application, with an emph
 
 ### Focus
 - Preventing regressions in search behavior as the application changes
-- Making sure the UI behaves the way a user would expect during search and navigation
+- Making sure the UI behaves the way a user would expect during navigation and search
 - Verifying that core end-to-end user flows continue to work correctly
 
 ## Install Project
