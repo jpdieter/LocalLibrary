@@ -72,16 +72,33 @@ Status: Pass
 ### 3. Empty Search
 
 Steps:
-1. Leave search empty
-2. Submit
+1. Leave search field empty
+2. Submit the search
 
 Expected:
-- No results or empty state displayed
+- No results or an empty-state message is displayed
 
 Actual:
-- Returns all books/authors/genres
+- Application returns all books, authors, and genres
 
-Status: FAIL (Unexpected behavior)
+Status: 
+- FAIL (Behavior does not match expected search validation)
+
+### 4. Author Name Search
+
+Steps:
+1. Enter full author name in search field
+2. Submit the search
+
+Expected:
+- Search returns matching author name
+
+Actual:
+- Full author name returns no results
+- Partial author searches ("George", "Orwell") returned correct author
+
+Status:
+- FAIL (Full author search behavior inconsistent with partial matching)
 
 
 ## TC-004 – Book Search Functionality
