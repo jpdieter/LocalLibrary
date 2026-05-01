@@ -72,7 +72,9 @@ test('User cannot search with empty query', async ({ page }) => {
 
   await page.getByRole('button', { name: 'Search' }).click();
 
-  // Expect no results
+  // Assert: Expect no results
   const results = page.locator('ul > li > a');
   await expect(results).toHaveCount(0);
+  // Empty search returns a full list of books, authors and genres and 
+  // does not match expected result.
 });
