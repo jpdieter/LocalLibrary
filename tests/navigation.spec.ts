@@ -31,7 +31,7 @@ test('User can navigate to book details page', async ({ page }) => {
   await expect(page.getByRole('heading', { name: /1984/ })).toBeVisible();
 });
 
-test('Author displays correctly on book details page', async ({ page }) => { 
+test('Book details page shows correct author', async ({ page }) => { 
 
   await page.goto('https://locallibrary-5sbd.onrender.com/catalog/books');
 
@@ -44,3 +44,15 @@ test('Author displays correctly on book details page', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Orwell, George' })).toBeVisible();
 
 });
+
+test(' Book details page shows correct ISBN and Summary', async ({ page }) => {
+  await page.goto('https://locallibrary-5sbd.onrender.com/catalog/books')
+
+  await page.getByRole('link', { name: '1984' }).click();
+
+  // Assert ISBN
+  await expect(page.getByText('ISBN: 978-0-452-28423-')).toBeVisible();
+
+  // Assert Summary
+  await expect(page.getByText('Summary: Set in a dystopian')).toBeVisible();
+})
