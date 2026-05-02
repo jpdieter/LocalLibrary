@@ -7,7 +7,7 @@
   },
   "item": [
     {
-      "name": "https://locallibrary-5sbd.onrender.com/catalog/books",
+      "name": "catalog/books",
       "event": [
         {
           "listen": "test",
@@ -58,6 +58,22 @@
             "books"
           ]
         }
+      },
+      "response": []
+    },
+    {
+      "name": "catalog/books/:id",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "search/submit",
+      "request": {
+        "method": "GET",
+        "header": []
       },
       "response": []
     }
