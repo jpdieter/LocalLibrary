@@ -6,7 +6,7 @@ Live app: https://locallibrary-5sbd.onrender.com/
 
 ## Introduction
 
-Welcome to the LocalLibrary web application! This web app is designed to manage the resources of a local library, providing functionalities for both librarians and patrons to interact with the library's inventory and borrowing system.
+LocalLibrary is a web application designed to manage the resources of a local library, allowing both librarians and patrons to interact with the library catalog and borrowing system.
 
 ## Table of Contents
 - [Features](#features)
@@ -36,122 +36,147 @@ Welcome to the LocalLibrary web application! This web app is designed to manage 
 
 ## Security
 
-- Implement strict input validation to prevent injection attacks.
+- Implements strict input validation to help prevent injection attacks.
 - Use Content Security Policy (CSP) to mitigate XSS attacks.
 - Handle errors securely to avoid sensitive information exposure.
 - Keep dependencies updated to address security vulnerabilities.
 
 ## QA Testing Overview
 
-This project includes manual testing, API testing, and UI automation testing to validate core functionality of the LocalLibrary application.
+This project uses a combination of manual testing, API testing, and UI automation to validate the core functionality of the LocalLibrary application.
+
+The goal was not to test every possible edge case, but to focus on the most important user workflows and protect them against regressions.
 
 ### Manual Testing
 Located in:
 - `/qa/test-cases.md`
 
+Manual testing was used first to explore the application and understand how features behaved before deciding what should be automated.
+
 Covers:
 - Navigation flows (Collection → Books → Book Details)
-- Book details page validation (title, author, metadata visibility)
-- Search functionality (exact, partial, empty input)
-- UI behavior validation
+- Book details validation (title, author, ISBN, summary)
+- Search functionality (exact, partial, empty input behavior)
+- General UI behavior and edge cases
+
+Manual testing also helped identify inconsistent search behavior, including:
+- Empty searches returning the full catalog
+- Full author searches behaving differently from partial author searches
 
 ### API Testing (Postman)
 Located in:
 - `/postman/LocalLibrary.postman_collection.json`
 
-Covers:
-- Book catalog endpoint validation
-- Book details endpoint validation
-- Search functionality testing
-- Response validation (status codes, headers, response time)
-- Basic security header verification
+API testing was used to validate backend responses separately from the browser UI.
 
-### How to Run API Tests
+This helps verify:
+- Status codes
+- Response content
+- Response times
+- Basic security headers
+- Search endpoint behavior
+
+Endpoints tested:
+
+- `/catalog/books`
+- `/catalog/book/:id`
+- `/search/submit`
+
+### Running API Tests
 1. Import the Postman collection
 2. Run the collection runner
-3. Verify all tests pass (green status)
+3. Review results in the test runner (all tests should pass)
 
 ### UI Automation Testing (Playwright)
 Located in:
 - `/tests/navigation.spec.ts`
 - `/tests/search.spec.ts`
 
-Covers:
-- Navigation flow validation (Landing → Collection → Books catalog)
-- Book details page navigation and routing validation
-- Dynamic URL validation for individual book pages
-- Book metadata validation (title visibility)
-- Search functionality behavior across multiple input types:
-   - Exact book title search (e.g. "1984")
-   - Partial title search (e.g. "19" returning "1984")
-   - Author search behavior (e.g. "Orwell" and "George Orwell")
-   - Empty search query
+Playwright automation focuses on protecting stable, repeatable user workflows.
+
+Current automated coverage includes:
+
+- Navigation to the book catalog
+- Navigation to individual book detail pages
+- Book metadata validation
+- Search functionality:
+    - Exact title searches
+    - Partial title searches
+    - Empty search behavior
 
 Notes:
-- Tests are written using Playwright
-- Role-based selectors (getByRole) are used where possible for stability and accessibility alignment
-- Search tests validate both functional correctness and real user behavior patterns (exact vs partial matching behavior)
+- Tests use Playwright with role-based selectors (`getByRole`) where possible
+- Assertions focus on user-visible behavior rather than implementation details
+- Automation coverage was intentionally kept small and focused on high-value flows
 
 ## QA Strategy
 
-This project focuses on the main user workflows in the application, with an emphasis on catching regressions in search and navigation rather than trying to cover every possible edge case.
+This project follows a layered QA approach:
+1. Manual exploratory testing to understand application behavior and identify edge cases
+2. API testing to validate backend responses independently of the UI
+3. UI automation to protect important user workflows from regressions
+4. GitHub Actions CI integration to automatically run Playwright tests on pushes and pull requests
+
+The focus was on building a maintainable QA workflow rather than maximizing the number of tests.
 
 ### Critical User Flows
-- Book search (exact titles, partial matches, and author-based queries)
-- Navigation between the catalog and search results
-- Navigation to individual book detail pages
-- Correct display and linking of search results
-- Correct rendering of book metadata and detail views
+- Searching for books
+- Navigating between catalog pages
+- Viewing book details
+- Verifying metadata visibility
+- Confirming routing and links behave correctly
 
-### Approach
-- Manual exploratory testing to understand expected behavior and identify edge cases
-- API testing (Postman) to confirm backend responses and status codes are correct
-- UI automation (Playwright) to protect key flows from regressions
-
-### Focus
-- Preventing regressions in search behavior as the application changes
-- Making sure the UI behaves the way a user would expect during navigation and search
-- Verifying that core end-to-end user flows continue to work correctly
+### Focus Areas
+- Catching regressions in navigation and search behavior
+- Validating backend responses separately from the UI
+- Keeping automation readable and maintainable
+- Documenting unexpected or inconsistent behavior discovered during testing
 
 ## Install Project
 
-1. Clone the repo
-   ```bash
-   git clone https://github.com/jpdieter/LocalLibrary.git
-   ```
-2. Navigate to the LocalLibrary directory.
+1. Clone the repository:
+
+```bash
+git clone https://github.com/jpdieter/LocalLibrary.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd LocalLibrary
+```
 
 3. Install dependencies:
 
-   ```bash
-   npm install
+```bash
+npm install
+```
 
-4. Create env file:   
+4. Create a `.env` file:
 
-     ```bash
-   touch .env
+```bash
+touch .env
+```
 
-5. Within the .env file, configure the following variables for your database and Express session secret:
-   
-   DATABASE_URL= MongoDB Atlas URL
-   
-   NODE_ENV=production
-   
-   SECRET_KEY=
+5. Configure the following environment variables inside `.env`:
 
-   Save the file.
- 
-6. Start the server:
+```env
+DATABASE_URL=your_mongodb_connection_string
+NODE_ENV=production
+SECRET_KEY=your_secret_key
+```
 
-   ```bash
-   npm run devstart
-   ```
-   
-7. Open the app in your web browser:
+6. Start the development server:
 
-   ```
-   http://localhost:3000
-   ```
+```bash
+npm run devstart
+```
+
+7. Open the application in your browser:
+
+```text
+http://localhost:3000
+```
 
 ## Contributing
 Contributions are welcome! If you'd like to contribute to the project, please fork the repository, make your changes, and submit a pull request.   
