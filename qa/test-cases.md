@@ -193,3 +193,17 @@ Assertions Verified:
 
 Result:
 PASS
+
+## TC-PM-003 - Search Endpoint
+
+Endpoint:
+POST /search/submit
+
+Assertions Verified:
+- Status code = 200
+- Response contains expected search result
+- Response time acceptable
+- Content-Type = text/html
+
+Result:
+PASS
