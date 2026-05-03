@@ -12,6 +12,7 @@ LocalLibrary is a web application designed to manage the resources of a local li
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Security](#security)
+- [QA Testing](#qa-testing-overview)
 - [Install Project](#install-project)
 - [Contributing](#contributing)
 - [Acknowledgements](#acknowledgements)
