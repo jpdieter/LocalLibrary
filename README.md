@@ -48,37 +48,33 @@ This project uses a layered QA approach combining manual testing, API validation
 
 Testing focuses on core user journeys rather than exhaustive edge-case coverage.
 
-### Test Strategy
+## Test Strategy
 
-**1. Manual Testing**
+### 1. Manual Testing
 
 Exploratory testing was used to understand application behavior and identify inconsistencies in navigation and search functionality.
 
-**2. API Testing (Postman)**
+### 2. API Testing (Postman)
 
 Backend endpoints were tested independently of the UI to validate response structure, status codes, and basic reliability.
 
-**3. UI Automation (Playwright)**
+### 3. UI Automation (Playwright)
 
 Automated tests focus on critical user workflows such as navigation, book details, and search functionality.
 
 GitHub Actions is used to run tests on push and pull requests.
 
-### Test Coverage
+## Test Coverage
 
 Testing focused on:
 
 - Navigating the book catalog
-
 - Viewing individual book details
-
 - Searching by title (exact and partial matches)
-
 - Validating book metadata display
-
 - Basic API response validation for catalog and search endpoints
 
-### Defects Found
+## Defects Found
 
 **BUG-001: Empty Search Returns Full Catalog**
 
@@ -88,24 +84,20 @@ Empty search input returns the full catalog instead of showing a validation mess
 
 Full author name searches return no results, while partial author name searches succeed.
 
-### Known Limitations
+## Known Limitations
 
 - Authentication and role-based access control were not fully tested in this project scope
-
 - Testing focused primarily on publicly accessible catalog and search functionality
-
 - Performance and security testing beyond basic checks were not performed
 
-### Automation
+## Automation
 
 UI automation is implemented using Playwright.
 
 Coverage includes:
 
 - Navigation between catalog and book detail pages
-
 - Book metadata validation (title, author, ISBN, summary)
-
 - Search functionality (exact and partial queries)
 
 Automation is focused on stable, high-value workflows rather than exhaustive test coverage.
