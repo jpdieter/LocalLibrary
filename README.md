@@ -12,7 +12,7 @@ LocalLibrary is a web application designed to manage the resources of a local li
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Security](#security)
-- [QA Testing](#qa-testing-overview)
+- [QA Overview](#qa-overview)
 - [Install Project](#install-project)
 - [Contributing](#contributing)
 - [Acknowledgements](#acknowledgements)
@@ -42,96 +42,73 @@ LocalLibrary is a web application designed to manage the resources of a local li
 - Handle errors securely to avoid sensitive information exposure.
 - Keep dependencies updated to address security vulnerabilities.
 
-## QA Testing Overview
+## QA Overview
 
-This project uses a combination of manual testing, API testing, and UI automation to validate the core functionality of the LocalLibrary application.
+This project uses a layered QA approach combining manual testing, API validation, and UI automation to validate core application workflows and prevent regressions.
 
-The goal was not to test every possible edge case, but to focus on the most important user workflows and protect them against regressions.
+Testing focused on core user journeys rather than exhaustive edge-case coverage.
 
-### Manual Testing
-Located in:
-- `/qa/test-cases.md`
+### Test Strategy
 
-Manual testing was used first to explore the application and understand how features behaved before deciding what should be automated.
+**1. Manual Testing**
 
-Covers:
-- Navigation flows (Collection → Books → Book Details)
-- Book details validation (title, author, ISBN, summary)
-- Search functionality (exact, partial, empty input behavior)
-- General UI behavior and edge cases
+Exploratory testing was used to understand application behavior and identify inconsistencies in navigation and search functionality.
 
-Manual testing also helped identify inconsistent search behavior, including:
-- Empty searches returning the full catalog
-- Full author searches behaving differently from partial author searches
+**2. API Testing (Postman)**
 
-### API Testing (Postman)
-Located in:
-- `/postman/LocalLibrary.postman_collection.json`
+Backend endpoints were tested independently of the UI to validate response structure, status codes, and basic reliability.
 
-API testing was used to validate backend responses separately from the browser UI.
+**3. UI Automation (Playwright)**
 
-This helps verify:
-- Status codes
-- Response content
-- Response times
-- Basic security headers
-- Search endpoint behavior
+Automated tests focus on critical user workflows such as navigation, book details, and search functionality.
 
-Endpoints tested:
+GitHub Actions is used to run tests on push and pull requests.
 
-- `/catalog/books`
-- `/catalog/book/:id`
-- `/search/submit`
+### Test Coverage
 
-### Running API Tests
-1. Import the Postman collection
-2. Run the collection runner
-3. Review results in the test runner (all tests should pass)
+Testing focused on:
 
-### UI Automation Testing (Playwright)
-Located in:
-- `/tests/navigation.spec.ts`
-- `/tests/search.spec.ts`
+- Navigating the book catalog
 
-Playwright automation focuses on protecting stable, repeatable user workflows.
+- Viewing individual book details
 
-Current automated coverage includes:
+- Searching by title (exact and partial matches)
 
-- Navigation to the book catalog
-- Navigation to individual book detail pages
-- Book metadata validation
-- Search functionality:
-    - Exact title searches
-    - Partial title searches
-    - Empty search behavior
+- Validating book metadata display
 
-Notes:
-- Tests use Playwright with role-based selectors (`getByRole`) where possible
-- Assertions focus on user-visible behavior rather than implementation details
-- Automation coverage was intentionally kept small and focused on high-value flows
+- Basic API response validation for catalog and search endpoints
 
-## QA Strategy
+### Defects Found
 
-This project follows a layered QA approach:
-1. Manual exploratory testing to understand application behavior and identify edge cases
-2. API testing to validate backend responses independently of the UI
-3. UI automation to protect important user workflows from regressions
-4. GitHub Actions CI integration to automatically run Playwright tests on pushes and pull requests
+**BUG-001: Empty Search Returns Full Catalog**
 
-The focus was on building a maintainable QA workflow rather than maximizing the number of tests.
+Empty search input returns the full catalog instead of prompting validation or returning no results.
 
-### Critical User Flows
-- Searching for books
-- Navigating between catalog pages
-- Viewing book details
-- Verifying metadata visibility
-- Confirming routing and links behave correctly
+**BUG-002: Full Author Search Inconsistency**
 
-### Focus Areas
-- Catching regressions in navigation and search behavior
-- Validating backend responses separately from the UI
-- Keeping automation readable and maintainable
-- Documenting unexpected or inconsistent behavior discovered during testing
+Full author name searches return no results, while partial matches succeed.
+
+### Known Limitations
+
+- Authentication and role-based access control were not fully tested in this project scope
+
+- Testing focused primarily on publicly accessible catalog and search functionality
+
+- Performance and security testing (beyond basic checks) were not performed
+
+### Automation
+
+UI automation is implemented using Playwright.
+
+Coverage includes:
+
+- Navigation between catalog and book detail pages
+
+- Book metadata validation (title, author, ISBN, summary)
+
+- Search functionality (exact and partial queries)
+
+Automation is focused on stable, high-value workflows rather than exhaustive test coverage.
 
 ## Install Project
 
