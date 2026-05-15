@@ -48,7 +48,7 @@ This project uses a layered QA approach combining manual testing, API validation
 
 Testing focuses on core user journeys rather than exhaustive edge-case coverage.
 
-## Test Strategy
+### Test Strategy
 
 ### 1. Manual Testing
 
@@ -64,7 +64,7 @@ Automated tests focus on critical user workflows such as navigation, book detail
 
 GitHub Actions is used to run tests on push and pull requests.
 
-## Test Coverage
+### Test Coverage
 
 Testing focused on:
 
@@ -74,7 +74,7 @@ Testing focused on:
 - Validating book metadata display
 - Basic API response validation for catalog and search endpoints
 
-## Defects Found
+### Defects Found
 
 **BUG-001: Empty Search Returns Full Catalog**
 
@@ -84,13 +84,13 @@ Empty search input returns the full catalog instead of showing a validation mess
 
 Full author name searches return no results, while partial author name searches succeed.
 
-## Known Limitations
+### Known Limitations
 
 - Authentication and role-based access control were not fully tested in this project scope
 - Testing focused primarily on publicly accessible catalog and search functionality
 - Performance and security testing beyond basic checks were not performed
 
-## Automation
+### Automation
 
 UI automation is implemented using Playwright.
 
