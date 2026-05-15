@@ -50,15 +50,15 @@ Testing focuses on core user journeys rather than exhaustive edge-case coverage.
 
 ### Test Strategy
 
-### 1. Manual Testing
+***1. Manual Testing***
 
 Exploratory testing was used to understand application behavior and identify inconsistencies in navigation and search functionality.
 
-### 2. API Testing (Postman)
+***2. API Testing (Postman)***
 
 Backend endpoints were tested independently of the UI to validate response structure, status codes, and basic reliability.
 
-### 3. UI Automation (Playwright)
+***3. UI Automation (Playwright)***
 
 Automated tests focus on critical user workflows such as navigation, book details, and search functionality.
 
