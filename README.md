@@ -44,9 +44,9 @@ LocalLibrary is a web application designed to manage the resources of a local li
 
 ## QA Overview
 
-This project uses a layered QA approach combining manual testing, API validation, and UI automation to validate core application workflows and prevent regressions.
+This project uses a layered QA approach combining manual testing, API validation, and UI automation to validate core application workflows and reduce regressions.
 
-Testing focused on core user journeys rather than exhaustive edge-case coverage.
+Testing focuses on core user journeys rather than exhaustive edge-case coverage.
 
 ### Test Strategy
 
@@ -82,11 +82,11 @@ Testing focused on:
 
 **BUG-001: Empty Search Returns Full Catalog**
 
-Empty search input returns the full catalog instead of prompting validation or returning no results.
+Empty search input returns the full catalog instead of showing a validation message or empty-state behavior.
 
 **BUG-002: Full Author Search Inconsistency**
 
-Full author name searches return no results, while partial matches succeed.
+Full author name searches return no results, while partial author name searches succeed.
 
 ### Known Limitations
 
@@ -94,7 +94,7 @@ Full author name searches return no results, while partial matches succeed.
 
 - Testing focused primarily on publicly accessible catalog and search functionality
 
-- Performance and security testing (beyond basic checks) were not performed
+- Performance and security testing beyond basic checks were not performed
 
 ### Automation
 
